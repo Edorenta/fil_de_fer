@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/03 00:07:38 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:25:35 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 00:28:10 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ static	double	floating_part(char *str)
 {
 	int		n;
 	double	f;
-		
+
 	n = 0;
 	f = 0.0;
 	while (*str >= '0' && *str <= '9')
 	{
-		f = (f*10.0) + (*str - '0');
+		f = (f * 10.0) + (*str - '0');
 		++str;
 		++n;
 	}
 	return (f / pow(10.0, n));
-	
 }
 
 double			parse_double(char *str)
@@ -63,6 +62,7 @@ double			parse_double(char *str)
 	}
 	return (neg ? -res : res);
 }
+
 int				parse_rgb(char *str)
 {
 	int		i;
