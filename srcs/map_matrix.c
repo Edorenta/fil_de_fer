@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:42:54 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 17:07:16 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 00:44:41 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static	void		init_coordinates(t_env *env, t_point **pt)
 						* n_y) - ((env->grid->zy_spacing / 10000) * n_x));
 			pt[i]->d = MX[n_y][n_x];
 			pt[i]->z = pt[i]->d * env->grid->z_mult / 10000;
-			//printf("z: %d ", pt[i]->z);
 			i++;
 		}
 	}
@@ -98,10 +97,7 @@ int					map_matrix(t_env *env)
 	rotate_xyz(env, pt, n);
 	i = -1;
 	while(++i < n)
-	{
 		pt[i]->y -= pt[i]->z;
-		printf("z: %d ", pt[i]->z);
-	}
 	wire_points(env, pt, n);
 	return (1);
 }

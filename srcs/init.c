@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:28:41 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 22:28:53 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 00:43:45 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		view_init(t_view *view)
 	view->rot_x = 0;
 	view->rot_y = 0;
 	view->rot_z = 0;
-	view->background = BLACK;
 	view->trail_lvl = 0;
 	view->last_dir = 0;
 	return (1);
@@ -121,8 +120,8 @@ int		reinit(t_env *env)
 	env->imgtab = (int *)mlx_get_data_addr(env->img,
 	&(env->bpp), &(env->sl), &(env->endian));
 	env->stroke_cnt = 0;
-	env->clr1 = CYAN;
-	env->clr2 = MAGENTA;
+	env->clr1 = env->view->clr1;
+	env->clr2 = env->view->clr2;
 	view_init(env->view);
 	tab_init(env, raw_str(env->file_name));
 	sketch(env);

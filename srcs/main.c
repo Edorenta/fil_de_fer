@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 17:42:20 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 23:35:23 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 00:42:02 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int		main(int ac, char **av)
 	env->file_name = ft_strdup(av[1]);
 	if (ac > 2)
 	{
-		env->view->clr1 = ft_atoi(av[2]);
+		env->view->clr1 = parse_rgb(av[2]);
 		env->clr1 = env->view->clr1;
 		if (ac == 4)
 		{
-			env->view->clr2 = ft_atoi(av[3]);
+			env->view->clr2 = parse_rgb(av[3]);
 			env->clr2 = env->view->clr2;
 		}
 	}

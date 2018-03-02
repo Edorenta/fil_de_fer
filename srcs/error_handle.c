@@ -6,39 +6,27 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 13:53:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:03:49 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 00:36:47 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static	int	parse_color(char *str)
+static	int	color_test(int clr)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		rgb[3];
-	char	*tmp;
+	int rgb[3];
 
-	i = 0;
-	k = 0;
-	tmp = (char *)malloc(sizeof(char) * 3);
-	while (str[++i])
-	{
-		if (ft_isdigit(str[i]))
-		{
-			j = -1;
-			while (ft_isdigit(str[i]))
-			{
-				tmp[++j] = str[i];
-				i++;
-			}
-			rgb[k] = ft_atoi(tmp);
-			++k;	
-		}
-	}
-	free(tmp);
-	return (rgb_to_hex(rgb[0], rgb[1], rgb[2]));
+	rgb[0] = hex_r(clr, MODE_RGB);
+	rgb[1] = hex_g(clr, MODE_RGB);
+	rgb[2] = hex_b(clr, MODE_RGB);
+	printf("R: %d\n", rgb[0]);
+	printf("G: %d\n", rgb[1]);
+	printf("B: %d\n", rgb[2]);
+	if (rgb[0] > 255 || rgb[0] < 0
+		|| rgb[1] > 255 || rgb[1] < 0
+		|| rgb[2] > 255 || rgb[2] < 0)
+		return (0);
+	return (1);
 }
 
 int			put_err(int errno)
@@ -66,8 +54,8 @@ int			check_av(int ac, char **av)
 	errno = 0;
 	if (ac < 2 || ac > 4)
 		errno = 1;
-	if ((ac == 3 && !color_test(av[2])) || (ac == 4
-		&& (!color_test(av[2]) || !color_test(av[3]))))
+	if ((ac == 3 && !color_test(parse_rgb(av[2]))) || (ac == 4 &&
+		(!color_test(parse_rgb(av[2])) || !color_test(parse_rgb(av[3])))))
 		errno = 2;
 	else if (!check_map(raw_str(av[1])))
 		errno = 3;
