@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 19:18:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 20:33:23 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/02 23:21:48 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void		draw_line(t_env *env, t_point *a, t_point *b)
 	err = x[2] - y[2];	
 	while (!((x[1] == x[0]) && (y[1] == y[0])))
 	{
-		ppixel(env, x[0], y[0], gradient(env, vectorize(a, b),
-		y[0], x[0]));
+		ppixel(env, x[0], y[0], gradient(env, vectorize(a, b), y[0]));
 		err2 = err;
 		if (err2 > -x[2])
 		{

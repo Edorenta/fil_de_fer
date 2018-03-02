@@ -6,7 +6,7 @@
 #    By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/12 12:43:59 by pde-rent          #+#    #+#              #
-#    Updated: 2018/03/02 18:27:48 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/03/02 23:17:46 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,19 @@ else
 	MLX_PATH = minilibx11/
 	INCLUDES = -Iminilibx11 -Iinclude -Ilibft/include
 endif
-LIBFT		= -Llibft/ -lft
-SRC_FILES	= {}.c
+LIBS		= $(LIBMLX) libft/libft.a libclr/libclr.a
+#-Llibft/ -lft -Llibclr/ -llr
 
+SRC_SUFFIX  = .c
+#SRC_PREFIX =
+SRC_RAW     =   main			init			drawing_toolbox			\
+				sketch			txt_parser		utilities				\
+				error_handle	print_ui		map_matrix				\
+				arrow_move		zoom_move		rot_move				\
+				depth_move		color_range		key_management		
+
+#SRC_RAW2   = $(addprefix ${SRC_PREFIX},${SRC_RAW})
+SRC_FILES   = $(addsuffix $(SRC_SUFFIX),$(SRC_RAW))
 OBJ_FILES	= $(SRC_FILES:.c=.o)
 SRC			= $(addprefix $(SRC_PATH),$(SRC_FILES))
 OBJ			= $(addprefix $(OBJ_PATH),$(OBJ_FILES))
@@ -57,41 +67,40 @@ MV			= "\\033[1;30m"
 
 #unicode
 CHECK		= "\\xE2\\x9C\\x94"
-OK			= " $(GRE)$(CHE)$(WHITE)"
+OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
 all : $(NAME)
 
-$(NAME) : libft mlx $(OBJ)
+$(NAME) : build_libs $(OBJ)
 	@$(CC) $(LIB) $(OBJ) -o $(NAME)
 
-libft :
+build_libs :
 	@$(MAKE) -C libft/
-
-mlx :
+	@$(MAKE) -C libclr/
 	@$(MAKE) -C $(MLX_PATH)
 
 $(OBJ_PATH)%.o : $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) -Iminilibx_macos -Iinclude -Ilibft/include -o $@ -c $<
+	@$(CC) $(INCLUDE) -o $@ -c $<
 
 clean :
 	@rm -rf $(OBJ_PATH)
 	@$(MAKE) -C $(MLX_PATH) clean
-	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx cleaned$(OK)\n"
+	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx cleaned\t$(OK)\n"
 	@$(MAKE) -C libft/ clean
-	@printf "$(UP2)\r$(EOLCLR)""$(MV)Libft cleaned$(OK)\n"
+	@printf "$(UP2)\r$(EOLCLR)""$(MV)Libft cleaned\t$(OK)\n"
 
 fclean :
 	@rm -f $(NAME)
 	@rm -rf $(OBJ_PATH)
 	@$(MAKE) -C $(MLX_PATH) clean
 	@rm -f $(MLX_PATH)libmlx.a
-	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx binaries erased$(OK)\n"
+	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx binaries erased\t$(OK)\n"
 	@$(MAKE) -C libft/ fclean
-	@printf "$(UP2)\r$(EOLCLR)""$(MV)Libft binaries erased$(OK)\n"
+	@printf "$(UP2)\r$(EOLCLR)""$(MV)Libft binaries erased\t$(OK)\n"
 
 re : fclean $(NAME)
-	@printf "$(UP9)\r$(EOLCLR)""$(GREEN)Project successfully re-compiled$(OK)\n"
+	@printf "$(UP9)\r$(EOLCLR)""$(GREEN)Project successfully re-compiled\t$(OK)\n"
 
 norm : norm_fdf norm_lib
 
@@ -101,4 +110,4 @@ norm_fdf :
 norm_lib :
 	@norminette libft/srcs/ libft/include/
 
-.PHONY : all libft mlx clean fclean re norm
+.PHONY : all build_libs clean fclean re norm

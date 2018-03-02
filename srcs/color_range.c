@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 19:12:21 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 20:37:26 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 00:14:43 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static	int		get_color(t_env *env, double height)
 	return (rgb_to_hex(r, g, b));
 }
 
-int				gradient(t_env *env, t_vect v, int y, int x)
+int				gradient(t_env *env, t_vect v, int y)
 {
 	if (v.a->d != v.b->d)
 	{
@@ -37,19 +37,19 @@ int				gradient(t_env *env, t_vect v, int y, int x)
 		{
 			if (v.a->y > v.b->y)
 				return (get_color(env, (((((double)(y - v.b->y)) / (v.a->y
-				- v.b->y)) * (double)(v.a->d - v.b->d)) + (double)v.b->d)));
+											- v.b->y)) * (double)(v.a->d - v.b->d)) + (double)v.b->d)));
 			if (v.b->y > v.a->y)
 				return (get_color(env, (((((double)(v.b->y - y)) / (v.b->y
-				- v.a->y)) * (double)(v.a->d - v.b->d)) + (double)v.b->d)));
+											- v.a->y)) * (double)(v.a->d - v.b->d)) + (double)v.b->d)));
 		} 
 		else
 		{
 			if (v.b->y > v.a->y)
 				return (get_color(env, (((((double)(y - v.a->y)) / (v.b->y
-				- v.a->y)) * (double)(v.b->d - v.a->d)) + (double)v.a->d)));
+											- v.a->y)) * (double)(v.b->d - v.a->d)) + (double)v.a->d)));
 			else if (v.a->y > v.b->y)
 				return (get_color(env, (((((double)(v.a->y - y)) / (v.a->y
-				- v.b->y)) * (double)(v.b->d - v.a->d)) + (double)v.a->d)));
+											- v.b->y)) * (double)(v.b->d - v.a->d)) + (double)v.a->d)));
 		}
 	}
 	return (get_color(env, (double)v.a->d));

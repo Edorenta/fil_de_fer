@@ -6,7 +6,7 @@
 #    By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/16 02:57:04 by pde-rent          #+#    #+#              #
-#    Updated: 2018/03/02 19:00:59 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/03/02 22:29:58 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ SRC_PATH	= srcs/
 OBJ_PATH	= objs/
 FLAGS		= -Wall -Werror -Wextra -g
 CC			= gcc $(FLAGS)
-NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' | sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
+NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' |\
+ sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 SRC_SUFFIX	= .c
 SRC_PREFIX	= ft_
 SRC_RAW		=	swap		bzero		print_bits	tolower			\
@@ -59,12 +60,10 @@ WHITE		= "\\033[0m"
 CYAN		= "\\033[36m"
 GREEN		= "\\033[32m"
 BOLD		= "\\033[1m"
+PINK		= "\\033[95m"
 
 #command
-UP2			= "\\033[2A"
-UP9			= "\\033[9A"
-EOLCLR		= "\\033[K"
-MV			= "\\033[1;30m"
+EOLCLR		= "\\033[0K"
 #\033[<L>;<C>H puts the cursor at line L and column C
 #\033[<N>A Move the cursor up N lines
 #\033[<N>B Move the cursor down N lines
@@ -78,32 +77,38 @@ MV			= "\\033[1;30m"
 #unicode
 
 CHECK		= "\\xE2\\x9C\\x94"
-OK			= " $(GREEN)$(CHECK)$(WHITE)"
+OK			= " $(CYAN)$(CHECK)$(WHITE)"
+
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
-	@printf "\n[$(NAME_P)] running $(BOLD)$(CYAN)ar rc $@$(WHITE)"
+$(NAME) : obj_folder $(OBJ)
+	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
+	"all binaries compiled\t"$(OK)'\n'
+	@printf "[$(NAME_P)] running\t\t$(WHITE)ar rc $@$(WHITE)"
 	@ar rc $(NAME) $(OBJ)
-	@printf '\t\t\t'$(OK)'\n'
-	@printf "[$(NAME_P)] running $(BOLD)$(CYAN)ranlib $@$(WHITE)"
+	@printf '\t\t'$(OK)'\n'
+	@printf "[$(NAME_P)] running\t\t$(WHITE)ranlib $@$(WHITE)"
 	@ranlib	$(NAME)
-	@printf '\t\t\t'$(OK)'\n'
+	@printf '\t\t'$(OK)'\n'
+	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
+	"build successful\t"$(OK)'\n'
+
+obj_folder :
+	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@printf "\r\$(EOLCLR)[$(NAME_P)] compiling $(BOLD)$(YELLOW)$<$(WHITE)..."
-	@mkdir -p $(OBJ_PATH)
+	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)"
 	@$(CC) -I./include -o $@ -c $<
-	@mv $(OBJ) $(OBJ_PATH)
-	@printf '\t\t\t'$(OK)
+	@printf '\t'$(OK)
 
 clean :
-	@printf "[$(NAME_P)] cleaning all $(BOLD)$(RED) obj file$(WHITE)"
+	@printf "[$(NAME_P)] cleaning\t$(PINK)all obj file$(WHITE)"
 	@rm -rf $(OBJ_PATH)
 	@printf '\t\t'$(OK)'\n'
 
 fclean : clean
-	@printf "[$(NAME_P)] erasing $(BOLD)$(CYAN)$(NAME)$(WHITE)"
+	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME)$(WHITE)"
 	@rm -f $(NAME)
 	@printf '\t\t\t'$(OK)'\n'
 
@@ -113,3 +118,4 @@ norm :
 	@norminette srcs/ include/
 
 .PHONY: all clean fclean re norm
+

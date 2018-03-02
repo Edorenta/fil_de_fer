@@ -6,15 +6,22 @@
 /*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 03:50:38 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/01/23 18:20:12 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 00:14:27 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBCLR_H
 # define LIBCLR_H
 
+# include <stdlib.h>
+# include <math.h>
+
 # define DMIN(X,Y)		(X > Y ? Y : X)
-# define DMIN(X,Y)		(X > Y ? X : Y)
+# define DMAX(X,Y)		(X > Y ? X : Y)
+
+# define MODE_RGB		1
+# define MODE_RGBA		2
+# define MODE_ARGB		3
 
 # define WHITE			0x00FFFFFF
 # define GREY			0x00A4A4A4
@@ -29,8 +36,8 @@
 # define SAND			0x00FFCC66
 # define ORANGE			0x00FF8000
 
-# define DARK_GREY		0x00595959
 # define BLACK			0x00000000
+# define DARK_GREY		0x00595959
 # define DARK_CYAN		0x00008080
 # define DARK_RED		0x00800000
 # define DARK_GREEN		0x00006600
@@ -62,12 +69,18 @@
 # define ALPHA_5		0x0D
 # define ALPHA_0		0x00
 
+int		parse_rgb(char *str);
 int		rgb_to_hex(int r, int g, int b);
 int		rgba_to_hex(int r, int g, int b, int a);
 int		argb_to_hex(int a, int r, int g, int b);
-int     shade_color(int clr, int pct);
-int     shade_opacity(int clr, int pct);
-int     blend_color(int clr1, int clr2, int pct);
+int		shade_color(int clr, int pct);
+int		shade_opacity(int clr, int pct, int mode);
+int		blend_color(int clr1, int clr2, int pct);
 int		set_opacity(int clr, int lvl);
+int		hex_r(long clr, int mode);
+int		hex_g(long clr, int mode);
+int		hex_b(long clr, int mode);
+int		hex_a(long clr, int mode);
+int		*hex_rgba(long clr, int mode, int *ptr);
 
 #endif

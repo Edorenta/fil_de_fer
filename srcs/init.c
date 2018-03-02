@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:28:41 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/01 19:26:31 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/02 22:28:53 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int		view_init(t_view *view)
 t_env   *env_init(void)
 {
 	t_env       *env;
-	t_view		*view;
 	int			i;
 
 	i = -1;
@@ -108,7 +107,8 @@ int		deinit(t_env *env)
 	//free(env->win_title);
 	//free(env->file_name);
 	//free(env->imgtab);
-	//free(env);
+	free(env);
+	
 	return (1);	
 }
 

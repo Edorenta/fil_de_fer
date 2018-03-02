@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 14:34:31 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 20:34:24 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/02 23:33:15 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,13 @@ typedef struct	s_view
 	int		mid_y;
 	int		last_dir;
 	int		background;
+	int		clr1;
+	int		clr2;
 	int8_t	trail_lvl;	
 }				t_view;
 
 typedef	struct	s_env
 {
-	//t_point	*ptest;
 	t_grid	*grid;
 	t_view	*view;
 	void	*mlx;
@@ -129,9 +130,7 @@ void	ppixel(t_env *env, int x, int y, int clr);
 void	print_ui(t_env *env);
 void    put_ui(t_env *env, int row, int col, int clr, char *str);
 char	*raw_str(char *file_name);
-int     rgb_to_hex(int R, int G, int B);
-int     set_opacity(int clr, int8_t lvl);
-int     gradient(t_env *env, t_vect v, int y, int x);
+int     gradient(t_env *env, t_vect v, int y);
 int     tab_init(t_env *env, char *str);
 int		grid_init(t_env *env);
 int		view_init(t_view *view);
