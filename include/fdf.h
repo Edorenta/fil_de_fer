@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 14:34:31 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 15:46:42 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/02 20:34:24 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <math.h>
 # include <time.h>
 # include <mlx.h>
-# include "../libft/libft.h"
-# include "colors.h"
+# include "../libft/include/libft.h"
+# include "../libclr/include/libclr.h"
 # include "keymap.h"
 
 # define IS_INT(X) 		if (!X) return (0);
@@ -125,13 +125,13 @@ void	draw_line(t_env *env, t_point *a, t_point *b);
 void    draw_circle(t_env *env, t_point *mid, float pct_radius);
 void	win_refresh(t_env *env);
 void	ppoint(t_env *env, t_point *pt);
-void	ppixel(t_env *env, int *tab, int x, int y, int clr);
+void	ppixel(t_env *env, int x, int y, int clr);
 void	print_ui(t_env *env);
 void    put_ui(t_env *env, int row, int col, int clr, char *str);
 char	*raw_str(char *file_name);
 int     rgb_to_hex(int R, int G, int B);
 int     set_opacity(int clr, int8_t lvl);
-int     gradient(t_env *env, t_point *a, t_point *b, int y, int x);
+int     gradient(t_env *env, t_vect v, int y, int x);
 int     tab_init(t_env *env, char *str);
 int		grid_init(t_env *env);
 int		view_init(t_view *view);
@@ -151,6 +151,6 @@ int		reinit(t_env *env);
 int     deinit(t_env *env);
 t_env	*env_init(void);
 t_point	*pt_init(void);
-t_vect  *vectorize(t_point *a, t_point *b);
+t_vect  vectorize(t_point *a, t_point *b);
 
 #endif

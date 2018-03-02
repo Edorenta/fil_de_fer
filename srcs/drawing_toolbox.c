@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 19:18:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/01 10:13:52 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/02 20:33:23 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void		draw_line(t_env *env, t_point *a, t_point *b)
 {
 	int x[4];
 	int y[4];
+	int err; 
+	int	err2;
 
 	x[0] = a->x;
 	x[1] = b->x;
@@ -25,12 +27,11 @@ void		draw_line(t_env *env, t_point *a, t_point *b)
 	y[2] = abs(y[1] - y[0]);
 	x[3] = (x[1] > x[0] ? 1 : -1);
 	y[3] = (y[1] > y[0] ? 1 : -1);
-	int err = x[2] - y[2];
-	int	err2;
-
+	err = x[2] - y[2];	
 	while (!((x[1] == x[0]) && (y[1] == y[0])))
 	{
-		ppixel(env, env->imgtab, x[0], y[0], gradient(env, a, b, y[0], x[0]));
+		ppixel(env, x[0], y[0], gradient(env, vectorize(a, b),
+		y[0], x[0]));
 		err2 = err;
 		if (err2 > -x[2])
 		{
@@ -46,14 +47,14 @@ void		draw_line(t_env *env, t_point *a, t_point *b)
 }
 static	void	draw_eight_sym(t_env *env, t_point *mid, int pos_x, int pos_y)
 {
-	ppixel(env, env->imgtab, mid->x + pos_x, mid->y + pos_y, mid->clr);
-	ppixel(env, env->imgtab, mid->x + pos_y, mid->y + pos_x, mid->clr);
-	ppixel(env, env->imgtab, mid->x - pos_y, mid->y + pos_x, mid->clr);
-	ppixel(env, env->imgtab, mid->x - pos_x, mid->y + pos_y, mid->clr);
-	ppixel(env, env->imgtab, mid->x - pos_x, mid->y - pos_y, mid->clr);
-	ppixel(env, env->imgtab, mid->x - pos_y, mid->y - pos_x, mid->clr);
-	ppixel(env, env->imgtab, mid->x + pos_y, mid->y - pos_x, mid->clr);
-	ppixel(env, env->imgtab, mid->x + pos_x, mid->y - pos_y, mid->clr);
+	ppixel(env, mid->x + pos_x, mid->y + pos_y, mid->clr);
+	ppixel(env, mid->x + pos_y, mid->y + pos_x, mid->clr);
+	ppixel(env, mid->x - pos_y, mid->y + pos_x, mid->clr);
+	ppixel(env, mid->x - pos_x, mid->y + pos_y, mid->clr);
+	ppixel(env, mid->x - pos_x, mid->y - pos_y, mid->clr);
+	ppixel(env, mid->x - pos_y, mid->y - pos_x, mid->clr);
+	ppixel(env, mid->x + pos_y, mid->y - pos_x, mid->clr);
+	ppixel(env, mid->x + pos_x, mid->y - pos_y, mid->clr);
 }
 
 void			draw_circle(t_env *env, t_point *mid, float pct_radius)
