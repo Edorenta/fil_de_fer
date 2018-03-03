@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 17:42:20 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 08:45:40 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 19:04:08 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		main(int ac, char **av)
 {
 	t_env	*env;
-	
+
 	if (check_av(ac, av))
 		return (put_err(check_av(ac, av)));
 	env = env_init();

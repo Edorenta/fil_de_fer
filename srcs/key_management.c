@@ -6,22 +6,23 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 14:46:28 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 08:45:37 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 19:03:36 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int		mouse_recognition(int key_code, int pos_x, int pos_y, t_env *env)
+int				mouse_recognition(int key_code, int pos_x, int pos_y,
+		t_env *env)
 {
 	if (key_code == SCROLL_UP)
 		inc_depth(env);
 	else if (key_code == SCROLL_DOWN)
 		dec_depth(env);
-	sketch(env);	
+	sketch(env);
 	(void)pos_x;
 	(void)pos_y;
-	return (1);	
+	return (1);
 }
 
 static	int		key_rec_1(t_env *env, int key_code)
@@ -79,7 +80,7 @@ static	int		key_rec_2(t_env *env, int key_code)
 	return (1);
 }
 
-int		key_recognition(int key_code, t_env *env)
+int				key_recognition(int key_code, t_env *env)
 {
 	if (key_code == 53)
 	{

@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:42:54 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 11:18:45 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 19:21:01 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,70 +16,65 @@ static	void		wire_points(t_env *env, t_point *pt, int n)
 {
 	int		i;
 	/*
-	int		corners;
-	t_point *pt2;
-	corners = 4;
-	pt2 = (t_point *)malloc(sizeof(t_point) * corners);
+	** int		corners;
+	** t_point *pt2;
+	** corners = 4;
+	** pt2 = (t_point *)malloc(sizeof(t_point) * corners);
 	*/
 	i = n;
-	while(i--)
+	while (i--)
 	{
 		if (env->view.hori)
-			if ((i < (n - 1)) && ((i + 1)% env->grid.nb_x))
+			if ((i < (n - 1)) && ((i + 1) % env->grid.nb_x))
 				draw_line(env, pt[i], pt[i + 1]);
-	 	if (env->view.verti)
+		if (env->view.verti)
 			if (i < (n - env->grid.nb_x))
 				draw_line(env, pt[i], pt[i + env->grid.nb_x]);
 	}
 	/*
-	i = n;
-	while (i-- > (env->grid.nb_x + 1))
-	{
-		pt2[0] = pt[i];
-		pt2[1] = pt[i - 1];
-		pt2[2] = pt[i - env->grid.nb_x];
-		pt2[3] = pt[i - env->grid.nb_x + 1];
-		if ((i + 1)% env->grid.nb_x)
-			polygon_fill(env, pt2, corners, env->width * env->height);
-	}
+	** i = n;
+	** while (i-- > (env->grid.nb_x + 1))
+	** {
+	** pt2[0] = pt[i];
+	** pt2[1] = pt[i - 1];
+	** pt2[2] = pt[i - env->grid.nb_x];
+	** pt2[3] = pt[i - env->grid.nb_x + 1];
+	** if ((i + 1)% env->grid.nb_x)
+	** polygon_fill(env, pt2, corners, env->width * env->height);
+	** }
 	*/
 }
 
-static	void		set_coordinates(t_point *pt, int ref_x, int ref_y,
-		int *x, int *y, int *z)
+static	void		rotate_xyz(t_env *env, t_point *pt, int n)
 {
-	*x = (pt->x) - ref_x;
-	*y = (pt->y) - ref_y;
-	*z = (pt->z);
-}
-
-static	void	rotate_xyz(t_env *env, t_point *pt, int n)
-{
-	int		rx;
-	int		ry;
-	int		z;
-	int		i;
-	double	teta[3];
+	int				rx;
+	int				ry;
+	int				z;
+	int				i;
+	static	double	t = M_PI / 180;
 
 	i = -1;
-	teta[2] = ROT_Z * M_PI / 180;
-	teta[1] = ROT_Y * M_PI / 180;
-	teta[0] = ROT_X * M_PI / 180;
-	while(++i < n)
+	while (++i < n)
 	{
-		set_coordinates(&pt[i], MID_X, MID_Y, &rx, &ry, &z);
-		pt[i].x += (int)((rx * cos(teta[2])) + (ry * sin(teta[2]))) - rx;
-		pt[i].y += (int)(-(rx * sin(teta[2])) + (ry * cos(teta[2]))) - ry;
-		set_coordinates(&pt[i], MID_X, MID_Y, &rx, &ry, &z);
-		pt[i].x += (int)((rx * cos(teta[1])) - (z * sin(teta[1]))) - rx;
-		pt[i].z = (int)((rx * sin(teta[1])) + (z * cos(teta[1])));
-		set_coordinates(&pt[i], MID_X, MID_Y, &rx, &ry, &z);
-		pt[i].y += (int)((ry * cos(teta[0])) + (z * sin(teta[0]))) - ry;
-		pt[i].z = (int)(-(ry * sin(teta[0])) + (z * cos(teta[0])));
+		rx = (pt[i].x) - env->view.mid_x;
+		ry = (pt[i].y) - env->view.mid_y;
+		z = (pt[i].z);
+		pt[i].x += (int)((rx * cos(t * ROT_Z)) + (ry * sin(t * ROT_Z))) - rx;
+		pt[i].y += (int)(-(rx * sin(t * ROT_Z)) + (ry * cos(t * ROT_Z))) - ry;
+		rx = (pt[i].x) - env->view.mid_x;
+		ry = (pt[i].y) - env->view.mid_y;
+		z = (pt[i].z);
+		pt[i].x += (int)((rx * cos(t * ROT_Y)) - (z * sin(t * ROT_Y))) - rx;
+		pt[i].z = (int)((rx * sin(t * ROT_Y)) + (z * cos(t * ROT_Y)));
+		rx = (pt[i].x) - env->view.mid_x;
+		ry = (pt[i].y) - env->view.mid_y;
+		z = (pt[i].z);
+		pt[i].y += (int)((ry * cos(t * ROT_X)) + (z * sin(t * ROT_X))) - ry;
+		pt[i].z = (int)(-(ry * sin(t * ROT_X)) + (z * cos(t * ROT_X)));
 	}
 }
 
-static	void	init_coordinates(t_env *env, t_point *pt)
+static	void		init_coordinates(t_env *env, t_point *pt)
 {
 	int		n_x;
 	int		n_y;
@@ -114,7 +109,7 @@ int					map_matrix(t_env *env)
 	pt = (t_point *)malloc(sizeof(t_point) * n);
 	init_coordinates(env, pt);
 	rotate_xyz(env, pt, n);
-	while(++i < n)
+	while (++i < n)
 		pt[i].y -= pt[i].z;
 	wire_points(env, pt, n);
 	return (1);
