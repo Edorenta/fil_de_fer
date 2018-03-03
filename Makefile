@@ -6,7 +6,7 @@
 #    By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/12 12:43:59 by pde-rent          #+#    #+#              #
-#    Updated: 2018/03/02 23:17:46 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/03/03 18:10:07 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC_RAW     =   main			init			drawing_toolbox			\
 				sketch			txt_parser		utilities				\
 				error_handle	print_ui		map_matrix				\
 				arrow_move		zoom_move		rot_move				\
-				depth_move		color_range		key_management		
+				depth_move		color_range		key_management			\
+				color_filler	
 
 #SRC_RAW2   = $(addprefix ${SRC_PREFIX},${SRC_RAW})
 SRC_FILES   = $(addsuffix $(SRC_SUFFIX),$(SRC_RAW))

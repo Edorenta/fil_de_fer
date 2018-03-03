@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/03 00:55:27 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 08:37:41 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 18:12:44 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	polygon_fill(t_env *env, t_point *pt, int corners, int size)
 {
 	int		i;
 	t_point	j;
-	int		k = corners - 1;
+	int		k;
 	int8_t	inside;
 
+	k = corners - 1;
 	j.d = -1;
 	while (++(j.d) < size)
 	{
@@ -28,16 +29,14 @@ void	polygon_fill(t_env *env, t_point *pt, int corners, int size)
 		j.x = j.d - (j.y * env->width);
 		while (++i < corners)
 		{
-	    	if (((pt[i].y < j.y && pt[k].y >= j.y)
-			|| (pt[k].y < j.y && pt[i].y >= j.y))
-			    &&  (pt[i].x <= j.x || pt[k].x <= j.x))
-			{
-		      inside ^= (pt[i].x + (j.y - pt[i].y)
-					  /(pt[k].y - pt[i].y) * (pt[k].x - pt[i].x) < j.x);
-			}
-	    	k = i;
+			if (((pt[i].y < j.y && pt[k].y >= j.y)
+				|| (pt[k].y < j.y && pt[i].y >= j.y))
+				&& (pt[i].x <= j.x || pt[k].x <= j.x))
+				inside ^= (pt[i].x + (j.y - pt[i].y)
+				/ (pt[k].y - pt[i].y) * (pt[k].x - pt[i].x) < j.x);
+			k = i;
 		}
 		if (inside)
-		   ppixel(env, j.x, j.y, WHITE);	
+			ppixel(env, j.x, j.y, WHITE);
 	}
 }
