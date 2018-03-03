@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 19:18:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 08:20:00 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 11:17:05 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ void		draw_line(t_env *env, t_point a, t_point b)
 		}
 	}
 }
-static	void	draw_eight_sym(t_env *env, t_point *mid, int pos_x, int pos_y)
+static	void	draw_eight_sym(t_env *env, t_point mid, int pos_x, int pos_y)
 {
-	ppixel(env, mid->x + pos_x, mid->y + pos_y, mid->clr);
-	ppixel(env, mid->x + pos_y, mid->y + pos_x, mid->clr);
-	ppixel(env, mid->x - pos_y, mid->y + pos_x, mid->clr);
-	ppixel(env, mid->x - pos_x, mid->y + pos_y, mid->clr);
-	ppixel(env, mid->x - pos_x, mid->y - pos_y, mid->clr);
-	ppixel(env, mid->x - pos_y, mid->y - pos_x, mid->clr);
-	ppixel(env, mid->x + pos_y, mid->y - pos_x, mid->clr);
-	ppixel(env, mid->x + pos_x, mid->y - pos_y, mid->clr);
+	ppixel(env, mid.x + pos_x, mid.y + pos_y, mid.clr);
+	ppixel(env, mid.x + pos_y, mid.y + pos_x, mid.clr);
+	ppixel(env, mid.x - pos_y, mid.y + pos_x, mid.clr);
+	ppixel(env, mid.x - pos_x, mid.y + pos_y, mid.clr);
+	ppixel(env, mid.x - pos_x, mid.y - pos_y, mid.clr);
+	ppixel(env, mid.x - pos_y, mid.y - pos_x, mid.clr);
+	ppixel(env, mid.x + pos_y, mid.y - pos_x, mid.clr);
+	ppixel(env, mid.x + pos_x, mid.y - pos_y, mid.clr);
 }
 
-void			draw_circle(t_env *env, t_point *mid, float pct_radius)
+void			draw_circle(t_env *env, t_point mid, float pct_radius)
 {
 	int radius = (int)((float)env->width * pct_radius) / 100;
 	int pos_x = radius-1;

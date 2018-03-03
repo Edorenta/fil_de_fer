@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 19:12:21 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 08:19:22 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 11:16:12 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static	int		get_color(t_env *env, double height)
 	int		b;
 	double	step;
 
-	step = (height - env->grid->min) /
-		(double)(env->grid->max - env->grid->min);
+	step = (height - env->grid.min) /
+		(double)(env->grid.max - env->grid.min);
 	r = ((1 - step) * ((env->clr1 & RED) >> 16)
 			+ step * ((env->clr2 & RED) >> 16));
 	g = ((1 - step) * ((env->clr1 & GREEN) >> 8)
@@ -33,6 +33,7 @@ int				gradient(t_env *env, t_vect v, int y)
 {
 	if (v.a.d != v.b.d)
 	{
+		//printf("d1: %d, d2: %d\n", v.a.d, v.b.d);
 		if (v.a.d > v.b.d)
 		{
 			if (v.a.y > v.b.y)
@@ -52,7 +53,7 @@ int				gradient(t_env *env, t_vect v, int y)
 					- v.b.y)) * (double)(v.b.d - v.a.d)) + (double)v.a.d)));
 		}
 	}
-	return (get_color(env, (double)v.a.d));
+	return (env->clr1);
 }
 
 int				change_back_color(t_env *env)
@@ -62,7 +63,7 @@ int				change_back_color(t_env *env)
 	int         picker;
 
 	picker = rand()/(RAND_MAX / 9);
-	env->view->background = set_opacity(back_clr[picker], env->view->trail_lvl);
+	env->view.background = set_opacity(back_clr[picker], env->view.trail_lvl);
 	return (1);
 }
 

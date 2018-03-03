@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 14:34:31 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 08:32:56 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 10:55:11 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@
 # define IS_INT(X) 		if (!X) return (0);
 # define IS_CHAR(X) 	if (!X) return (NULL);
 # define IS_VOID(X)		if (!X) return ;
-# define MX				env->grid->matrix
+# define MX				env->grid.matrix
 # define SCREEN_WIDTH	2560
 # define SCREEN_HEIGHT	1440
-# define ROT_X			env->view->rot_x
-# define ROT_Y			env->view->rot_y
-# define ROT_Z			env->view->rot_z
-# define POS_X			env->view->pos_x
-# define POS_Y			env->view->pos_y
-# define REL_X(X)		(X->x - env->view->mid_x)
-# define REL_Y(X)		(X->y - env->view->mid_y)
-# define X_OFFSET		env->grid->x_offset
-# define Y_OFFSET		env->grid->y_offset
+# define ROT_X			env->view.rot_x
+# define ROT_Y			env->view.rot_y
+# define ROT_Z			env->view.rot_z
+# define POS_X			env->view.pos_x
+# define POS_Y			env->view.pos_y
+# define MID_X			env->view.mid_x
+# define MID_Y			env->view.mid_y
+# define X_OFFSET		env->grid.x_offset
+# define Y_OFFSET		env->grid.y_offset
 # define BUFF_SIZE		100
 
 typedef struct  s_point
@@ -94,7 +94,7 @@ typedef struct	s_view
 
 typedef	struct	s_env
 {
-	t_grid	*grid;
+	t_grid	grid;
 	t_view	view;
 	void	*mlx;
 	void	*win;
@@ -125,8 +125,8 @@ typedef int ROT(t_env *env, int dir);
 ROT		rot_x, rot_y, rot_z;
 
 void	draw_line(t_env *env, t_point a, t_point b);
-void    draw_circle(t_env *env, t_point *mid, float pct_radius);
-void    polygon_fill(t_env *env, t_point **pt, int corners, int size);
+void    draw_circle(t_env *env, t_point mid, float pct_radius);
+void    polygon_fill(t_env *env, t_point *pt, int corners, int size);
 void	win_refresh(t_env *env);
 void	ppoint(t_env *env, t_point *pt);
 void	ppixel(t_env *env, int x, int y, int clr);

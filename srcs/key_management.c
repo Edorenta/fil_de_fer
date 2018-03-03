@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 14:46:28 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 07:53:38 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 08:45:37 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,21 @@ static	int		key_rec_2(t_env *env, int key_code)
 	if (key_code == KEY_B)
 		change_back_color(env);
 	if (key_code == KEY_H)
-		env->view->hori = env->view->hori ? 0 : 1;
+		env->view.hori = env->view.hori ? 0 : 1;
 	if (key_code == KEY_V)
-		env->view->verti = env->view->verti ? 0 : 1;
+		env->view.verti = env->view.verti ? 0 : 1;
 	if (key_code == KEY_T)
 	{
 		env->trail = env->trail ? 0 : 1;
 		if (!(env->trail))
-			env->view->trail_lvl = 0;
+			env->view.trail_lvl = 0;
 	}
 	if (key_code == KEY_G && env->trail)
 	{
-		env->view->trail_lvl = env->view->trail_lvl > 21 ? 0
-			: ++env->view->trail_lvl;
-		env->view->background =
-			set_opacity(env->view->background, env->view->trail_lvl);
+		env->view.trail_lvl = env->view.trail_lvl > 21 ? 0
+			: ++env->view.trail_lvl;
+		env->view.background =
+			set_opacity(env->view.background, env->view.trail_lvl);
 	}
 	return (1);
 }

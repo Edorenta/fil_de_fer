@@ -8,31 +8,31 @@ static	void		print_state(t_env *env)
 		put_ui(env, 20, 1, env->clr1, "      |    STATES    |\0");
 		put_ui(env, 21, 1, env->clr1, "      '--------------'\0");	
 		put_ui(env, 22, 1, WHITE, "Pos x:         (pixels)\0");
-		put_ui(env, 22, 2, WHITE, ft_itoa(env->view->pos_x));
+		put_ui(env, 22, 2, WHITE, ft_itoa(env->view.pos_x));
 		put_ui(env, 23, 1, WHITE, "Pos y:         (pixels)\0");
-		put_ui(env, 23, 2, WHITE, ft_itoa(env->view->pos_y));
+		put_ui(env, 23, 2, WHITE, ft_itoa(env->view.pos_y));
 		put_ui(env, 24, 1, WHITE, "Rot x:         (degrees)\0");
-		put_ui(env, 24, 2, WHITE, ft_itoa(env->view->rot_x));
+		put_ui(env, 24, 2, WHITE, ft_itoa(env->view.rot_x));
 		put_ui(env, 25, 1, WHITE, "Rot y:         (degrees)\0");
-		put_ui(env, 25, 2, WHITE, ft_itoa(env->view->rot_y));
+		put_ui(env, 25, 2, WHITE, ft_itoa(env->view.rot_y));
 		put_ui(env, 26, 1, WHITE, "Rot z:         (degrees)\0");
-		put_ui(env, 26, 2, WHITE, ft_itoa(env->view->rot_z));
+		put_ui(env, 26, 2, WHITE, ft_itoa(env->view.rot_z));
 		put_ui(env, 27, 1, WHITE, "Zoom:      x 1.15 ^\0");
-		put_ui(env, 27, 3, WHITE, ft_itoa(env->view->zoom));
+		put_ui(env, 27, 3, WHITE, ft_itoa(env->view.zoom));
 		put_ui(env, 28, 1, WHITE, "Highest:       (pixels)\0");
 		put_ui(env, 28, 2, WHITE, ft_itoa(
-		fmax(env->grid->max * env->grid->z_mult,
-		env->grid->min * env->grid->z_mult) / 10000));
+		fmax(env->grid.max * env->grid.z_mult,
+		env->grid.min * env->grid.z_mult) / 10000));
 		put_ui(env, 29, 1, WHITE, "Lowest:        (pixels)\0");
 		put_ui(env, 29, 2, WHITE, ft_itoa(
-		fmin(env->grid->max * env->grid->z_mult,
-		env->grid->min * env->grid->z_mult) / 10000));
+		fmin(env->grid.max * env->grid.z_mult,
+		env->grid.min * env->grid.z_mult) / 10000));
 		put_ui(env, 30, 1, env->clr1, "Highs Color\0");
 		put_ui(env, 31, 1, env->clr2, "Lows Color\0");
 		put_ui(env, 32, 1, WHITE, "Trail:");
 		put_ui(env, 32, 2, WHITE, (!env->trail ? "OFF\0" : "ON: lvl\0"));
 		put_ui(env, 32, 3, WHITE, (!env->trail ? ""
-		: ft_itoa(env->view->trail_lvl)));
+		: ft_itoa(env->view.trail_lvl)));
 		mlx_string_put(env->mlx, env->win, 300, 2, GREY,
 		"Press SHIFT to hide STATES\0");
 	}

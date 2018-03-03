@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:28:41 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 08:34:07 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 10:54:09 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@ int		grid_init(t_env *env)
 	int		abs_max;
 
 	shorter = 15;
-	env->grid->zx_spacing = 10000 * ((env->width
-	* (100 - (2 * shorter))) / (400 * (env->grid->nb_x - 1)));
-	env->grid->x_spacing = 10000 * (
+	env->grid.zx_spacing = 10000 * ((env->width
+	* (100 - (2 * shorter))) / (400 * (env->grid.nb_x - 1)));
+	env->grid.x_spacing = 10000 * (
 	((env->width * (100 - (2 * shorter))/100)
-	- ((env->grid->nb_y - 1) * (env->grid->zx_spacing / 10000)))
-	/ ((env->grid->nb_x - 1)));
-	env->grid->zy_spacing = 10000 * ((env->height
-	* (100 - (2 * shorter))) / (900 * (env->grid->nb_y - 1)));
-	env->grid->y_spacing = 10000 * (
+	- ((env->grid.nb_y - 1) * (env->grid.zx_spacing / 10000)))
+	/ ((env->grid.nb_x - 1)));
+	env->grid.zy_spacing = 10000 * ((env->height
+	* (100 - (2 * shorter))) / (900 * (env->grid.nb_y - 1)));
+	env->grid.y_spacing = 10000 * (
 	((env->height * (100 - (2 * shorter))/100)
-	- ((env->grid->nb_x - 1) * (env->grid->zy_spacing / 10000)))
-	/ ((env->grid->nb_y - 1)));
+	- ((env->grid.nb_x - 1) * (env->grid.zy_spacing / 10000)))
+	/ ((env->grid.nb_y - 1)));
 	X_OFFSET = ((env->width * shorter) / 100) * 10000;
 	Y_OFFSET = (((env->height * shorter) / 100)
-	+ ((env->grid->zy_spacing / 10000) * env->grid->nb_x)) * 10000;
-	env->grid->max = ft_tabmax(MX, env->grid->nb_x, env->grid->nb_y);
-	env->grid->min = ft_tabmin(MX, env->grid->nb_x, env->grid->nb_y);
-	abs_max = (abs(env->grid->max) > abs(env->grid->min) ?
-	abs(env->grid->max) : abs(env->grid->min));
-	env->grid->z_mult = 10000 * ((env->height / 8) / (abs_max + 1));
+	+ ((env->grid.zy_spacing / 10000) * env->grid.nb_x)) * 10000;
+	env->grid.max = ft_tabmax(MX, env->grid.nb_x, env->grid.nb_y);
+	env->grid.min = ft_tabmin(MX, env->grid.nb_x, env->grid.nb_y);
+	abs_max = (abs(env->grid.max) > abs(env->grid.min) ?
+	abs(env->grid.max) : abs(env->grid.min));
+	env->grid.z_mult = 10000 * ((env->height / 8) / (abs_max + 1));
 	return (1);
 }
 
@@ -66,20 +66,21 @@ t_env   *env_init(void)
 	srand (time(NULL));
 	env = (t_env *)malloc(sizeof(t_env));
 	//env->ptest = (t_point *)malloc(sizeof(t_point));
-	//env->view = (t_view *)malloc(sizeof(t_view));
-	env->grid = (t_grid *)malloc(sizeof(t_grid));
 	env->trail = 0;
 	env->win_title = ft_strdup("Wireframe");
 	env->pct_scale = 80;
 	env->width = (SCREEN_WIDTH * env->pct_scale) / 100;
 	env->height = (SCREEN_HEIGHT * env->pct_scale) / 100;
 	view_init(&(env->view));
+	env->view.mid_x = env->width / 2;
+	env->view.mid_y = env->height / 2;
 	env->view.clr1 = CYAN;
 	env->view.clr2 = MAGENTA;
 	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, env->width, env->height,
 	env->win_title);
 	env->display_ui = 0;
+	env->display_state = 0;
 	env->view.background = BLACK;
 	env->img = mlx_new_image(env->mlx, env->width, env->height);
 	env->imgtab = (int *)mlx_get_data_addr(env->img,

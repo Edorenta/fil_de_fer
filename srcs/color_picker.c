@@ -6,13 +6,13 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/03 00:55:27 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 02:16:53 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 08:37:41 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	polygon_fill(t_env *env, t_point **pt, int corners, int size)
+void	polygon_fill(t_env *env, t_point *pt, int corners, int size)
 {
 	int		i;
 	t_point	j;
@@ -28,12 +28,12 @@ void	polygon_fill(t_env *env, t_point **pt, int corners, int size)
 		j.x = j.d - (j.y * env->width);
 		while (++i < corners)
 		{
-	    	if (((pt[i]->y < j.y && pt[k]->y >= j.y)
-			|| (pt[k]->y < j.y && pt[i]->y >= j.y))
-			    &&  (pt[i]->x <= j.x || pt[k]->x <= j.x))
+	    	if (((pt[i].y < j.y && pt[k].y >= j.y)
+			|| (pt[k].y < j.y && pt[i].y >= j.y))
+			    &&  (pt[i].x <= j.x || pt[k].x <= j.x))
 			{
-		      inside ^= (pt[i]->x + (j.y - pt[i]->y)
-					  /(pt[k]->y - pt[i]->y) * (pt[k]->x - pt[i]->x) < j.x);
+		      inside ^= (pt[i].x + (j.y - pt[i].y)
+					  /(pt[k].y - pt[i].y) * (pt[k].x - pt[i].x) < j.x);
 			}
 	    	k = i;
 		}

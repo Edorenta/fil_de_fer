@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 13:53:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 05:19:39 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 10:58:15 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ static	int	color_test(int clr)
 	rgb[0] = hex_r(clr, MODE_RGB);
 	rgb[1] = hex_g(clr, MODE_RGB);
 	rgb[2] = hex_b(clr, MODE_RGB);
-	printf("R: %d\n", rgb[0]);
-	printf("G: %d\n", rgb[1]);
-	printf("B: %d\n", rgb[2]);
 	if (rgb[0] > 255 || rgb[0] < 0
 		|| rgb[1] > 255 || rgb[1] < 0
 		|| rgb[2] > 255 || rgb[2] < 0)
