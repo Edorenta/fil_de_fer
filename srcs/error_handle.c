@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 13:53:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 10:58:15 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 18:47:12 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			put_err(int errno)
 int			check_av(int ac, char **av)
 {
 	int errno;
-	
+
 	errno = 0;
 	if (ac < 2 || ac > 4)
 		errno = 1;
@@ -66,15 +66,14 @@ int			check_map(char *str)
 	long	i;
 	int		n_x;
 	int		n_y;
-	
+
 	i = -1;
 	n_x = 0;
 	n_y = 0;
 	if (!str)
 		return (0);
-	while(str[++i])
+	while (str[++i])
 	{
-		//printf("%c", str[i]);
 		if (!ft_isdigit(str[i]) && str[i] != '-' && str[i] != 32
 			&& str[i] != '\n' && (str[i] == '-' && !ft_isdigit(str[i + 1])))
 			return (0);
@@ -85,5 +84,5 @@ int			check_map(char *str)
 	}
 	if (n_x % n_y)
 		return (-1);
-	return 1;
+	return (1);
 }
