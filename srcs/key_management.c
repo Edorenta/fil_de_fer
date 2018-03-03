@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/14 14:46:28 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/01 18:06:27 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 07:53:38 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static	int		key_rec_1(t_env *env, int key_code)
 		rot_x(env, 1);
 	else if (key_code == KEY_NUM2)
 		rot_x(env, 2);
-	else if (key_code == KEY_NUM4)
-		rot_y(env, 1);
 	else if (key_code == KEY_NUM6)
+		rot_y(env, 1);
+	else if (key_code == KEY_NUM4)
 		rot_y(env, 2);
 	else if (key_code == KEY_NUM1)
 		rot_z(env, 1);
@@ -59,6 +59,10 @@ static	int		key_rec_2(t_env *env, int key_code)
 		change_front_color(env);
 	if (key_code == KEY_B)
 		change_back_color(env);
+	if (key_code == KEY_H)
+		env->view->hori = env->view->hori ? 0 : 1;
+	if (key_code == KEY_V)
+		env->view->verti = env->view->verti ? 0 : 1;
 	if (key_code == KEY_T)
 	{
 		env->trail = env->trail ? 0 : 1;
@@ -77,7 +81,6 @@ static	int		key_rec_2(t_env *env, int key_code)
 
 int		key_recognition(int key_code, t_env *env)
 {
-	//ft_putstr("Key Recognition Initiated\n");
 	if (key_code == 53)
 	{
 		deinit(env);
@@ -91,10 +94,6 @@ int		key_recognition(int key_code, t_env *env)
 		env->display_state = env->display_state ? 0 : 1;
 	key_rec_1(env, key_code);
 	key_rec_2(env, key_code);
-	env->stroke_cnt++;
-	env->stroke_cnt = env->stroke_cnt < 6 ? env->stroke_cnt : 0;
-	//printf("Stroke Count:%d\n", env->stroke_cnt);
-	//printf("Keycode:%d\n", key_code);
 	sketch(env);
 	return (0);
 }

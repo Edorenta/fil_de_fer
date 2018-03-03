@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 19:12:21 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:29:01 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 04:18:31 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,23 @@ int				gradient(t_env *env, t_vect v, int y)
 
 int				change_back_color(t_env *env)
 {
-	static  int	back_clr[10] = {BLACK, DARK_GREY, DARK_FUN, DARK_RED,
-		DARK_CYAN, DARK_BLUE, DARK_SAND, BROWN, DARK_PINK, DARK_GREEN};
+	static  int	back_clr[10] = {BLACK, DARK_GREY, DARK_GREEN, DARK_RED,
+		DARK_CYAN, DARK_BLUE, DARK_SAND, BROWN, DARK_PINK, DARK_GREY};
 	int         picker;
 
-	picker = rand()/(RAND_MAX / 10) - 1;
+	picker = rand()/(RAND_MAX / 9);
 	env->view->background = set_opacity(back_clr[picker], env->view->trail_lvl);
 	return (1);
 }
 
 int				change_front_color(t_env *env)
 {
-	static  int	wire_clr[10] = {WHITE, LIGHT_GREY, ORANGE, RED, CYAN,
-		SKY_BLUE, SAND, YELLOW, MAGENTA, GREEN};
+	static  int	wire_clr[10] = {LIGHT_GREY, ORANGE, RED, DARK_FUN, CYAN,
+		MAGENTA, SAND, YELLOW, SKY_BLUE, GREEN};
 	int         picker;
 
-	picker = rand()/(RAND_MAX / 10) - 1;
-	env->clr1 = wire_clr[picker];
+	picker = rand()/(RAND_MAX / 9);
+	env->clr1 = wire_clr[9 - picker];
 	env->clr2 = wire_clr[picker];
 	return (1);
 }

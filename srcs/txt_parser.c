@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 19:20:22 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 23:13:33 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 07:53:42 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,24 @@ char    		*raw_str(char *file_name)
 {
 	int     fd;
 	int     i;
-	int     handle;
-	char    buf[BUFF_SIZE];
+	int		file_size;
+	char    buf;
 	char    *tmp;
-
-	i = 0;
+	
+	file_size = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (NULL);
-	while ((handle = read(fd, buf, BUFF_SIZE)))
-		i++;
+	while ((read(fd, &buf, 1)))
+			file_size++;
+	if (!(file_size))
+		return (NULL);
 	close(fd);
-	IS_CHAR((tmp = (char *)malloc(sizeof(char) * (i * BUFF_SIZE + 1))));
+	IS_CHAR((tmp = (char *)malloc(sizeof(char) * ((file_size + 1)))));
 	fd = open(file_name, O_RDONLY);
-	handle = read(fd, tmp, (BUFF_SIZE * i + 1));
-	i = BUFF_SIZE * (i - 1) - 1;
-	while (tmp[++i])
-		if (tmp[i] == '\n')
-			if(!ft_isdigit(tmp[i + 1]) && !ft_isoperator(tmp[i + 1]))
-				while(tmp[++i])
-					tmp[i] = '\0';
+	read(fd, tmp, file_size);
+	tmp[file_size] = '\0';
+	printf("%s\n", tmp);
 	return (tmp);
-}
-
-//convert the char** tab to a matrix of point levels (size nb_x * nb_y)
-static	int		tab_convert(t_env *env, char **tab)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	IS_INT((MX = (int **)malloc(sizeof(int *) * env->grid->nb_y)));
-    while (++i < env->grid->nb_y)
-		IS_INT((MX[i] = (int *)malloc(sizeof(int) * env->grid->nb_x)));
-	i = -1;
-	while (++i < env->grid->nb_y)
-	{
-		j = -1;
-		while (++j < env->grid->nb_x)
-			MX[i][j] = ft_atoi(tab[(env->grid->nb_x * i) + j]);
-	}
-	i = -1;
-	while (++i < env->grid->nb_y)
-		free(tab[i]);
-	free(tab);
-	grid_init(env);
-	return (1);
 }
 
 //convert the unique string to a char **table
@@ -69,32 +42,41 @@ static	int		map_str_tab(t_env *env, char *str)
 {
 	int		i;
 	int		j;
-	int		k;
-	char	**tab;
+	int		rows;
+	int		index;
+	char	*tmp;
 
 	i = -1;
 	j = -1;
-	k = 0;
-	IS_INT((tab = (char **)malloc(sizeof(char *)
-				* env->grid->nb_y * env->grid->nb_x + 10)));
-	while (++i < (env->grid->nb_y * env->grid->nb_x))
-		IS_INT((tab[i] = (char *)malloc(sizeof(char) * 10)))	
+	rows = 0;
+	index = 0;
+
+	IS_INT((MX = (int **)malloc(sizeof(int *) * env->grid->nb_y)));
+	tmp = (char *)malloc(sizeof(char) * 10);
+	while (++i < env->grid->nb_y)
+		IS_INT((MX[i] = (int *)malloc(sizeof(int) * env->grid->nb_x)));
 	i = -1;
 	while (str[++i])
-		if (str[i] > 32)
+	{
+		if (ft_isoperator(str[i]) || ft_isdigit(str[i]))
 		{
-			while (str[i] && (ft_isoperator(str[i]) || ft_isdigit(str[i])))
+			while (ft_isoperator(str[i]) || ft_isdigit(str[i]))
 			{
-				tab[k][++j] = str[i];
+				tmp[++j] = str[i];
 				i++;
 			}
-			while (tab[k][++j])
-				tab[k][j] = '\0';
+			tmp[++j] = '\0';
+			MX[index / (env->grid->nb_x)][(index % (env->grid->nb_x))]
+			= ft_atoi(tmp);
+			//printf("MX[%d,%d]: %d \n", index / (env->grid->nb_x),
+			//		index % (env->grid->nb_x), ft_atoi(tmp));
+			++index;
 			j = -1;
-			k++;
-		}
+		}	
+	}
 	free(str);
-	return (tab_convert(env, tab));
+	grid_init(env);
+	return (1);
 }
 
 //convert each lines of the initial file into a tab of char* matching wireframe

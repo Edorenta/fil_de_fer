@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 13:53:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:36:47 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 05:19:39 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int			check_map(char *str)
 	i = -1;
 	n_x = 0;
 	n_y = 0;
+	if (!str)
+		return (0);
 	while(str[++i])
 	{
 		//printf("%c", str[i]);

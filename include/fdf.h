@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 14:34:31 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 02:00:40 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 07:39:52 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define REL_Y(X)		(X->y - env->view->mid_y)
 # define X_OFFSET		env->grid->x_offset
 # define Y_OFFSET		env->grid->y_offset
-# define BUFF_SIZE		1000
+# define BUFF_SIZE		100
 
 typedef struct  s_point
 {
@@ -87,6 +87,8 @@ typedef struct	s_view
 	int		background;
 	int		clr1;
 	int		clr2;
+	int8_t	hori;
+	int8_t	verti;
 	int8_t	trail_lvl;	
 }				t_view;
 
@@ -102,12 +104,12 @@ typedef	struct	s_env
 	int8_t	display_ui;
 	int8_t	display_state;
 	int8_t	trail;
-	int		stroke_cnt;
 	int     width;
 	int     height;
 	int     pct_scale;
 	int		clr1;
 	int		clr2;
+	int		clr3;
 	int		*imgtab;
 	int		bpp;
 	int		sl;

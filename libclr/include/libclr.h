@@ -6,7 +6,7 @@
 /*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 03:50:38 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:47:28 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 04:16:24 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@
 # define ORANGE			0x00FF8000
 
 # define BLACK			0x00000000
-# define DARK_GREY		0x00595959
-# define DARK_CYAN		0x00008080
-# define DARK_RED		0x00800000
-# define DARK_GREEN		0x00006600
-# define DARK_BLUE		0x00003380
-# define DARK_PINK		0x00660066
-# define DARK_SAND		0x00806000
+# define DARK_GREY		0x00232323
+# define DARK_CYAN		0x00001a1e
+# define DARK_RED		0x00140000
+# define DARK_GREEN		0x00002105
+# define DARK_BLUE		0x0000114c
+# define DARK_PINK		0x0010001c
+# define DARK_SAND		0x00261d00
 # define DARK_FUN		0x006D647F
-# define BROWN			0x00662200
+# define BROWN			0x001c1515
 
 # define ALPHA_100		0xFF
 # define ALPHA_95		0xF2

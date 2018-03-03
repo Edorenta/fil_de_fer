@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/03 00:07:38 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:55:06 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 02:40:37 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,12 @@ int				parse_rgb(char *str)
 		if (str[i] >= '0' && str[i] <= '9')
 		{
 			j = -1;
-			while (str[i] >= '0' && str[i] <= '9')
+			while (str[i] >= '0' && str[i] <= '9' && j < 3)
 			{
 				tmp[++j] = str[i];
 				i++;
 			}
 			tmp[++j] = '\0';
-			printf("rgb: %s\n", tmp);
 			rgb[k] = parse_long(tmp);
 			++k;
 		}

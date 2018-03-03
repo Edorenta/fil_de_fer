@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:28:41 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:43:45 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 07:40:45 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int		grid_init(t_env *env)
 
 int		view_init(t_view *view)
 {
+	view->hori = 1;
+	view->verti = 1;
 	view->pos_x = 0;
 	view->pos_y = 0;
 	view->depth = 0;
@@ -75,21 +77,19 @@ t_env   *env_init(void)
 	//env->ptest = (t_point *)malloc(sizeof(t_point));
 	env->view = (t_view *)malloc(sizeof(t_view));
 	env->grid = (t_grid *)malloc(sizeof(t_grid));
-	env->stroke_cnt = 0;
 	env->trail = 0;
 	env->win_title = ft_strdup("Wireframe");
 	env->pct_scale = 80;
 	env->width = (SCREEN_WIDTH * env->pct_scale) / 100;
 	env->height = (SCREEN_HEIGHT * env->pct_scale) / 100;
-	env->clr1 = CYAN;
-	env->clr2 = MAGENTA;
-	env->mlx = mlx_init();
 	view_init(env->view);
-	env->view->mid_x = env->width / 2;
-	env->view->mid_y = env->height / 2;
+	env->view->clr1 = CYAN;
+	env->view->clr2 = MAGENTA;
+	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, env->width, env->height,
 	env->win_title);
 	env->display_ui = 0;
+	env->view->background = BLACK;
 	env->img = mlx_new_image(env->mlx, env->width, env->height);
 	env->imgtab = (int *)mlx_get_data_addr(env->img,
 			&(env->bpp), &(env->sl), &(env->endian));;
@@ -119,9 +119,10 @@ int		reinit(t_env *env)
 	env->img = mlx_new_image(env->mlx, env->width, env->height);
 	env->imgtab = (int *)mlx_get_data_addr(env->img,
 	&(env->bpp), &(env->sl), &(env->endian));
-	env->stroke_cnt = 0;
 	env->clr1 = env->view->clr1;
 	env->clr2 = env->view->clr2;
+	env->clr3 = env->view->background;
+	env->trail = 0;
 	view_init(env->view);
 	tab_init(env, raw_str(env->file_name));
 	sketch(env);
