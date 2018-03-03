@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 19:18:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 18:42:52 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 19:39:00 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void			draw_circle(t_env *env, t_point mid, float radius)
 	int dxy[2];
 	int err;
 
-	dxy = (int){1, 1};
+	dxy[0] = 1;
+	dxy[1] = 1;
 	radius *= ((float)env->width) / 100;
 	pos_xy[0] = radius - 1;
 	pos_xy[1] = 0;

@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 14:34:31 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 18:08:11 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 19:35:04 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef	struct	s_env
 void			move_right(t_env *env);
 void			move_left(t_env *env);
 void			move_up(t_env *env);
-void			move_doen(t_env env);
+void			move_down(t_env *env);
 void			zoom_in(t_env *env);
 void			zoom_out(t_env *env);
 void			inc_depth(t_env *env);

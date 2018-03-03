@@ -6,13 +6,13 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 17:51:58 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 08:44:11 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 19:37:15 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int		move_up(t_env *env)
+void		move_up(t_env *env)
 {
 	if (POS_Y >= env->height)
 	{
@@ -21,10 +21,9 @@ int		move_up(t_env *env)
 	}
 	POS_Y += (env->height / 120);
 	Y_OFFSET -= ((env->height / 120) * 10000);
-	return (1);
 }
 
-int		move_down(t_env *env)
+void		move_down(t_env *env)
 {
 	if (POS_Y <= -env->height)
 	{
@@ -33,10 +32,9 @@ int		move_down(t_env *env)
 	}
 	POS_Y -= (env->height / 120);
 	Y_OFFSET += ((env->height / 120) * 10000);
-	return (1);
 }
 
-int		move_left(t_env *env)
+void		move_left(t_env *env)
 {
 	if (POS_X <= -env->width)
 	{
@@ -45,10 +43,9 @@ int		move_left(t_env *env)
 	}
 	POS_X -= (env->width / 120);
 	X_OFFSET -= ((env->width / 120) * 10000);
-	return (1);
 }
 
-int		move_right(t_env *env)
+void		move_right(t_env *env)
 {
 	if (POS_X >= env->width)
 	{
@@ -57,5 +54,4 @@ int		move_right(t_env *env)
 	}
 	POS_X += (env->width / 120);
 	X_OFFSET += ((env->width / 120) * 10000);
-	return (1);
 }
