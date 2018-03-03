@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/03 00:07:38 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:28:10 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 00:55:06 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int				parse_rgb(char *str)
 				tmp[++j] = str[i];
 				i++;
 			}
+			tmp[++j] = '\0';
+			printf("rgb: %s\n", tmp);
 			rgb[k] = parse_long(tmp);
 			++k;
 		}

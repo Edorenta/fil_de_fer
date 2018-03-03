@@ -6,24 +6,44 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:42:54 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 00:44:41 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 02:14:57 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static	int			wire_points(t_env *env, t_point **pt, int n)
+static	void		wire_points(t_env *env, t_point **pt, int n)
 {
-	int i = n;
+	int		i;
+	int		corners;
+	t_point **pt2;
+	
+	corners = 4;
+	i = corners;
+	pt = (t_point **)malloc(sizeof(t_point *) * corners);
+	while (--i > -1)
+		pt2[i] = (t_point *)malloc(sizeof(t_point));
+	
+	i = n;
 	while(i--)
 	{
 		if ((i < (n - 1)) && ((i + 1)% env->grid->nb_x))
 			draw_line(env, pt[i], pt[i + 1]);
-		if (i < (n - env->grid->nb_x))
+	 	if (i < (n - env->grid->nb_x))
 			draw_line(env, pt[i], pt[i + env->grid->nb_x]);
 	}
-	return (1);
+	i = n;
+	while (i-- > (n - env->grid->nb_x))
+	{
+		pt2[0] = pt[i];
+		pt2[1] = pt[i + 1];
+		pt2[2] = pt[i + env->grid->nb_x];
+		pt2[3] = pt[i + env->grid->nb_x + 1];
+		if ((i + 1)% env->grid->nb_x)
+			polygon_fill(env, pt2, corners, env->width * env->height);
+	}
 }
+
 static	void		set_coordinates(t_point *pt, int ref_x, int ref_y,
 		int *x, int *y, int *z)
 {

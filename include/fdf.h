@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 14:34:31 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 23:33:15 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 02:00:40 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ ROT		rot_x, rot_y, rot_z;
 
 void	draw_line(t_env *env, t_point *a, t_point *b);
 void    draw_circle(t_env *env, t_point *mid, float pct_radius);
+void    polygon_fill(t_env *env, t_point **pt, int corners, int size);
 void	win_refresh(t_env *env);
 void	ppoint(t_env *env, t_point *pt);
 void	ppixel(t_env *env, int x, int y, int clr);
