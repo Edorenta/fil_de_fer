@@ -19,7 +19,6 @@ void	win_refresh(t_env *env)
 
 void	ppixel(t_env *env, int x, int y, int clr)
 {
-//	mlx_pixel_put(env->mlx, env->win, x, y, clr);
 	if (x > 0 && y > 0)
 		if (y < env->height && x < env->width)
 			env->imgtab[y * env->width + x] = clr;
@@ -30,11 +29,6 @@ void	put_ui(t_env *env, int row, int col, int clr, char *str)
 	mlx_string_put(env->mlx, env->win, -90 + 100 * col,
 	22 * row, clr, str);
 }
-
-//void	ppoint(t_env *env, t_point *pt)
-//{
-//	mlx_pixel_put(env->mlx, env->win, pt->x, pt->y, pt->clr);
-//}
 
 int		dyna_key_hook(t_env *env)
 {

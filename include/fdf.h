@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 14:34:31 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 10:55:11 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 14:50:51 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define IS_INT(X) 		if (!X) return (0);
 # define IS_CHAR(X) 	if (!X) return (NULL);
 # define IS_VOID(X)		if (!X) return ;
-# define MX				env->grid.matrix
 # define SCREEN_WIDTH	2560
 # define SCREEN_HEIGHT	1440
 # define ROT_X			env->view.rot_x
@@ -60,6 +59,7 @@ typedef struct	s_grid
 {
 	int		nb_x;
 	int		nb_y;
+	int		nb_tot;
 	int		x_offset;
 	int		y_offset;
 	int		x_spacing;
@@ -69,7 +69,7 @@ typedef struct	s_grid
 	int		zy_spacing;
 	int		max;
 	int		min;
-	int		**matrix;
+	int		*matrix;
 }			t_grid;
 
 typedef struct	s_view

@@ -6,7 +6,7 @@
 /*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 03:50:38 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 04:16:24 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 15:51:23 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@
 # define ALPHA_5		0x0D
 # define ALPHA_0		0x00
 
+long	parse_long(char *str);
+double	parse_double(char *str);
 int		parse_rgb(char *str);
 int		rgb_to_hex(int r, int g, int b);
 int		rgba_to_hex(int r, int g, int b, int a);

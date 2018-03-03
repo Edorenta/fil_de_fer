@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 19:20:22 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 11:39:53 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 15:24:59 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char    		*raw_str(char *file_name)
 	fd = open(file_name, O_RDONLY);
 	read(fd, tmp, file_size);
 	tmp[file_size] = '\0';
-	printf(tmp);
 	close(fd);
 	return (tmp);
 }
@@ -42,26 +41,31 @@ static	int		map_str_tab(t_env *env, char *str)
 	int		i;
 	int		j;
 	int		index;
+	int		sign;
 	char	*tmp;
 
 	i = -1;
-	j = -1;
-	index = 0;
+	sign = 1;
+	index = -1;
 	tmp = (char *)malloc(sizeof(char) * 10);
-	while (str[++i] && index < (env->grid.nb_x * env->grid.nb_y))
+	printf("%s\n",str);
+	while(str[++i])
 	{
-		while (str[i] && (ft_isoperator(str[i]) || ft_isdigit(str[i])))
+		sign = (str[i] == '-' ? -1 : ft_isdigit(str[i]) ? sign : 1);
+		if (ft_isdigit(str[i]))
 		{
-			tmp[++j] = str[i];
-			i++;
+			j = -1;
+			while (ft_isdigit(str[i]))
+			{
+				tmp[++j] = str[i];
+				i++;
+			}
+			tmp[++j] = '\0';
+			env->grid.matrix[++index] = parse_long(tmp) * sign;
+			//printf("%d ", env->grid.matrix[index]);
 		}
-		tmp[++j] = '\0';
-		MX[index / (env->grid.nb_x)][(index % (env->grid.nb_x))]
-		= ft_atoi(tmp);
-			printf("x: %d , y: %d\n", index % (env->grid.nb_x), index / (env->grid.nb_x));
-		++index;
-		j = -1;
 	}
+	free(tmp);
 	free(str);
 	grid_init(env);
 	return (1);
@@ -69,41 +73,36 @@ static	int		map_str_tab(t_env *env, char *str)
 
 static	int		dim_tab(t_env *env, char *str)
 {
-	int i;
-	int j;
+	int		i;
 
-	i = -1;
-	j = ((ft_isdigit(str[0]) || ft_isoperator(str[0])) ? 1 : 0);
-
-	while(str[++i] != '\n')
+	i = 0;
+	env->grid.nb_x = 0;
+	env->grid.nb_tot = 0;
+	while(str[i])
 	{
-		if (str[i] == 32)
-			if (ft_isdigit(str[i + 1]) || ft_isoperator(str[i + 1]))
-				j++;
-		if (str[i] == '\n')
-			if (ft_isdigit(str[i + 1]) || ft_isoperator(str[i + 1]))
-				j++;
+		while (str[i] && !ft_isdigit(str[i]))
+			i++;
+		while (str[i] && ft_isdigit(str[i]))
+			i++;
+		if (!(env->grid.nb_x) && str[i] == '\n')
+			env->grid.nb_x = env->grid.nb_tot;
+	    env->grid.nb_tot++;
 	}
-	env->grid.nb_x = j;
+	env->grid.nb_y = env->grid.nb_tot / env->grid.nb_x;
+	/*
+	ft_putstr("ok\n");
+	ft_putstr(" nx: ");
+	ft_putnbr(env->grid.nb_x);
+	ft_putstr(" ny: ");
+	ft_putnbr(env->grid.nb_y);
+	ft_putchar('\n');
+	*/
 	i = -1;
-	IS_INT((MX = (int **)malloc(sizeof(int *) * (env->grid.nb_y))));
-	while (++i < env->grid.nb_y)
-		IS_INT((MX[i] = (int *)malloc(sizeof(int) * (env->grid.nb_x))));
+	IS_INT((env->grid.matrix = (int *)malloc(sizeof(int) * (env->grid.nb_tot))));
 	return (map_str_tab(env, str));
 }
 
 int		tab_init(t_env *env, char *str)
 {
-	int		i;
-	int		j;
-	
-	i = -1;
-	j = 0;
-	while (str[++i])
-		if (str[i] == '\n')
-			j++;
-	if (str[i - 1] != '\n')
-		j++;
-	env->grid.nb_y = j;
 	return (dim_tab(env, str));
 }

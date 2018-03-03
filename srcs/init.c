@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:28:41 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 10:54:09 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 14:42:57 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int		grid_init(t_env *env)
 	X_OFFSET = ((env->width * shorter) / 100) * 10000;
 	Y_OFFSET = (((env->height * shorter) / 100)
 	+ ((env->grid.zy_spacing / 10000) * env->grid.nb_x)) * 10000;
-	env->grid.max = ft_tabmax(MX, env->grid.nb_x, env->grid.nb_y);
-	env->grid.min = ft_tabmin(MX, env->grid.nb_x, env->grid.nb_y);
+	env->grid.max = ft_arraymax(env->grid.matrix, env->grid.nb_tot - 1);
+	env->grid.min = ft_arraymin(env->grid.matrix, env->grid.nb_tot - 1);
 	abs_max = (abs(env->grid.max) > abs(env->grid.min) ?
 	abs(env->grid.max) : abs(env->grid.min));
 	env->grid.z_mult = 10000 * ((env->height / 8) / (abs_max + 1));
@@ -65,7 +65,6 @@ t_env   *env_init(void)
 	i = -1;
 	srand (time(NULL));
 	env = (t_env *)malloc(sizeof(t_env));
-	//env->ptest = (t_point *)malloc(sizeof(t_point));
 	env->trail = 0;
 	env->win_title = ft_strdup("Wireframe");
 	env->pct_scale = 80;
@@ -94,7 +93,7 @@ int		deinit(t_env *env)
 	//mlx_clear_window(env->mlx, env->win);
 	//mlx_destroy_window(env->mlx, env->win);
 	//free(env->view);
-	//free(env->grid);
+	//free(env->grid.matrix);
 	//free(env->win_title);
 	//free(env->file_name);
 	//free(env->imgtab);

@@ -33,7 +33,6 @@ int				gradient(t_env *env, t_vect v, int y)
 {
 	if (v.a.d != v.b.d)
 	{
-		//printf("d1: %d, d2: %d\n", v.a.d, v.b.d);
 		if (v.a.d > v.b.d)
 		{
 			if (v.a.y > v.b.y)
@@ -53,7 +52,7 @@ int				gradient(t_env *env, t_vect v, int y)
 					- v.b.y)) * (double)(v.b.d - v.a.d)) + (double)v.a.d)));
 		}
 	}
-	return (env->clr1);
+	return (get_color(env, (double)v.a.d));
 }
 
 int				change_back_color(t_env *env)

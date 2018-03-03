@@ -15,12 +15,12 @@
 static	void		wire_points(t_env *env, t_point *pt, int n)
 {
 	int		i;
+	/*
 	int		corners;
 	t_point *pt2;
-	
 	corners = 4;
 	pt2 = (t_point *)malloc(sizeof(t_point) * corners);
-	
+	*/
 	i = n;
 	while(i--)
 	{
@@ -96,7 +96,7 @@ static	void	init_coordinates(t_env *env, t_point *pt)
 						* n_x) + ((env->grid.zx_spacing / 10000) * n_y));
 			pt[i].y = ((Y_OFFSET / 10000) + ((env->grid.y_spacing / 10000)
 						* n_y) - ((env->grid.zy_spacing / 10000) * n_x));
-			pt[i].d = MX[n_y][n_x];
+			pt[i].d = env->grid.matrix[i + n_y];
 			pt[i].z = (pt[i].d * env->grid.z_mult) / 10000;
 			i++;
 		}
