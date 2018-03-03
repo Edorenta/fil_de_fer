@@ -6,20 +6,11 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:28:41 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 07:40:45 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 08:34:07 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-//point init
-t_point *pt_init(void)
-{
-	t_point *pt;
-
-	pt = (t_point *)malloc(sizeof(t_point));
-	return (pt);
-}
 
 int		grid_init(t_env *env)
 {
@@ -75,21 +66,21 @@ t_env   *env_init(void)
 	srand (time(NULL));
 	env = (t_env *)malloc(sizeof(t_env));
 	//env->ptest = (t_point *)malloc(sizeof(t_point));
-	env->view = (t_view *)malloc(sizeof(t_view));
+	//env->view = (t_view *)malloc(sizeof(t_view));
 	env->grid = (t_grid *)malloc(sizeof(t_grid));
 	env->trail = 0;
 	env->win_title = ft_strdup("Wireframe");
 	env->pct_scale = 80;
 	env->width = (SCREEN_WIDTH * env->pct_scale) / 100;
 	env->height = (SCREEN_HEIGHT * env->pct_scale) / 100;
-	view_init(env->view);
-	env->view->clr1 = CYAN;
-	env->view->clr2 = MAGENTA;
+	view_init(&(env->view));
+	env->view.clr1 = CYAN;
+	env->view.clr2 = MAGENTA;
 	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, env->width, env->height,
 	env->win_title);
 	env->display_ui = 0;
-	env->view->background = BLACK;
+	env->view.background = BLACK;
 	env->img = mlx_new_image(env->mlx, env->width, env->height);
 	env->imgtab = (int *)mlx_get_data_addr(env->img,
 			&(env->bpp), &(env->sl), &(env->endian));;
@@ -119,11 +110,11 @@ int		reinit(t_env *env)
 	env->img = mlx_new_image(env->mlx, env->width, env->height);
 	env->imgtab = (int *)mlx_get_data_addr(env->img,
 	&(env->bpp), &(env->sl), &(env->endian));
-	env->clr1 = env->view->clr1;
-	env->clr2 = env->view->clr2;
-	env->clr3 = env->view->background;
+	env->clr1 = env->view.clr1;
+	env->clr2 = env->view.clr2;
+	env->clr3 = env->view.background;
 	env->trail = 0;
-	view_init(env->view);
+	view_init(&(env->view));
 	tab_init(env, raw_str(env->file_name));
 	sketch(env);
 	return (1);

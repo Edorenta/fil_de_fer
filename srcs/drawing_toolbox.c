@@ -6,31 +6,31 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 19:18:36 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 23:21:48 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 08:20:00 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void		draw_line(t_env *env, t_point *a, t_point *b)
+void		draw_line(t_env *env, t_point a, t_point b)
 {
 	int x[4];
 	int y[4];
 	int err; 
 	int	err2;
 
-	x[0] = a->x;
-	x[1] = b->x;
+	x[0] = a.x;
+	x[1] = b.x;
 	x[2] = abs(x[1] - x[0]);
-	y[0] = a->y;
-	y[1] = b->y;
+	y[0] = a.y;
+	y[1] = b.y;
 	y[2] = abs(y[1] - y[0]);
 	x[3] = (x[1] > x[0] ? 1 : -1);
 	y[3] = (y[1] > y[0] ? 1 : -1);
 	err = x[2] - y[2];	
 	while (!((x[1] == x[0]) && (y[1] == y[0])))
 	{
-		ppixel(env, x[0], y[0], gradient(env, vectorize(a, b), y[0]));
+		ppixel(env, x[0], y[0], gradient(env, vectorize(&a, &b), y[0]));
 		err2 = err;
 		if (err2 > -x[2])
 		{

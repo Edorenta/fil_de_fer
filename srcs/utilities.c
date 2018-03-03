@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 18:29:34 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/02 20:34:05 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 08:18:58 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		dyna_key_hook(t_env *env)
 t_vect	vectorize(t_point *a, t_point *b)
 {
 	t_vect vect;
-	vect.a = a;
-	vect.b = b;
+	vect.a = *a;
+	vect.b = *b;
 	return (vect);
 }

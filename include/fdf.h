@@ -6,7 +6,7 @@
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 14:34:31 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/03 07:39:52 by pde-rent         ###   ########.fr       */
+/*   Updated: 2018/03/03 08:32:56 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct  s_point
 
 typedef	struct	s_vect
 {
-	t_point *a;
-	t_point *b;
+	t_point		a;
+	t_point		b;
 }				t_vect;
 
 typedef struct	s_grid
@@ -95,7 +95,7 @@ typedef struct	s_view
 typedef	struct	s_env
 {
 	t_grid	*grid;
-	t_view	*view;
+	t_view	view;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -124,7 +124,7 @@ MOVE	inc_depth, dec_depth;
 typedef int ROT(t_env *env, int dir);
 ROT		rot_x, rot_y, rot_z;
 
-void	draw_line(t_env *env, t_point *a, t_point *b);
+void	draw_line(t_env *env, t_point a, t_point b);
 void    draw_circle(t_env *env, t_point *mid, float pct_radius);
 void    polygon_fill(t_env *env, t_point **pt, int corners, int size);
 void	win_refresh(t_env *env);
