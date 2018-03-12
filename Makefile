@@ -15,12 +15,14 @@ SRC_PATH	= srcs/
 OBJ_PATH	= objs/
 FLAGS		= -Wall -Werror -Wextra -g
 CC			= gcc $(FLAGS)
-MLX_PATH	= minilibx/
-INCLUDES	= -I./include -Iminilibx -Ilibft/include -Ilibclr/include
 ifeq ($(shell uname -s), Darwin)
-    LIBMLX	= -framework OpenGL -framework AppKit -Lminilibx -lmlx
+	MLX_PATH= minilibx_macos/
+    LIBMLX	= -framework OpenGL -framework AppKit -Lminilibx_macos -lmlx
+	INCLUDES= -Iinclude -Iminilibx_macos -Ilibft/include -Ilibclr/include
+
 else
-	LIBMLX	= -lGL -Lminilibx -lmlx -lXext -lX11
+	LIBMLX	= -lGL -Lminilibx_linux -lmlx -lXext -lX11
+	INCLUDES= -Iinclude -Iminilibx_linux -Ilibft/include -Ilibclr/include
 endif
 LIBS		= $(LIBMLX) -lm -Llibclr -lclr -Llibft -lft
 #-Llibft/ -lft -Llibclr/ -llr
@@ -87,15 +89,15 @@ $(OBJ_PATH)%.o : $(SRC_PATH)%.c
 
 clean :
 	@rm -rf $(OBJ_PATH)
-#	@$(MAKE) -C $(MLX_PATH) clean
+	@$(MAKE) -C $(MLX_PATH) clean
 #	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx cleaned\t$(OK)\n"
 	@$(MAKE) -C libft/ clean
 	@$(MAKE) -C libclr/ clean
 
 fclean :
-	rm -f $(NAME)
-	rm -rf $(OBJ_PATH)
-#	@$(MAKE) -C $(MLX_PATH) clean
+	@rm -f $(NAME)
+	@rm -rf $(OBJ_PATH)
+	@$(MAKE) -C $(MLX_PATH) clean
 #	@rm -f $(MLX_PATH)libmlx.a
 #	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx binaries erased\t$(OK)\n"
 	@$(MAKE) -C libft/ fclean

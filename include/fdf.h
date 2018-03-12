@@ -19,7 +19,11 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <time.h>
-# include "../minilibx/mlx.h"
+# ifdef __APPLE__
+#	include "../minilibx_macos/mlx.h"
+# elif __linux__
+#	include "../minilibx_linux/mlx.h"
+# endif
 # include "../libft/include/libft.h"
 # include "../libclr/include/libclr.h"
 # include "keymap.h"
