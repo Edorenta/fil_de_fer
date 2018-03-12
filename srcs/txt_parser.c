@@ -61,7 +61,6 @@ static	int		map_str_tab(t_env *env, char *str)
 			}
 			tmp[++j] = '\0';
 			env->grid.matrix[++index] = parse_long(tmp) * sign;
-			//printf("%d ", env->grid.matrix[index]);
 		}
 	}
 	free(tmp);
@@ -83,21 +82,14 @@ static	int		dim_tab(t_env *env, char *str)
 			i++;
 		while (str[i] && ft_isdigit(str[i]))
 			i++;
+		env->grid.nb_tot++;
 		if (!(env->grid.nb_x) && str[i] == '\n')
 			env->grid.nb_x = env->grid.nb_tot;
-	    env->grid.nb_tot++;
 	}
 	env->grid.nb_y = env->grid.nb_tot / env->grid.nb_x;
-	/*
-	ft_putstr("ok\n");
-	ft_putstr(" nx: ");
-	ft_putnbr(env->grid.nb_x);
-	ft_putstr(" ny: ");
-	ft_putnbr(env->grid.nb_y);
-	ft_putchar('\n');
-	*/
-	i = -1;
-	IS_INT((env->grid.matrix = (int *)malloc(sizeof(int) * (env->grid.nb_tot))));
+	env->grid.nb_tot = env->grid.nb_x * env->grid.nb_y;
+	IS_INT((env->grid.matrix = (int *)malloc(sizeof(int)
+			* (env->grid.nb_tot))));
 	return (map_str_tab(env, str));
 }
 

@@ -31,28 +31,28 @@ static	int		get_color(t_env *env, double height)
 
 int				gradient(t_env *env, t_vect v, int y)
 {
-	if (v.a.d != v.b.d)
+	if (v.a.z != v.b.z)
 	{
-		if (v.a.d > v.b.d)
+		if (v.a.z > v.b.z)
 		{
 			if (v.a.y > v.b.y)
 				return (get_color(env, (((((double)(y - v.b.y)) / (v.a.y
-					- v.b.y)) * (double)(v.a.d - v.b.d)) + (double)v.b.d)));
+					- v.b.y)) * (double)(v.a.z - v.b.z)) + (double)v.b.z)));
 				if (v.b.y > v.a.y)
 				return (get_color(env, (((((double)(v.b.y - y)) / (v.b.y
-					- v.a.y)) * (double)(v.a.d - v.b.d)) + (double)v.b.d)));
+					- v.a.y)) * (double)(v.a.z - v.b.z)) + (double)v.b.z)));
 		}
 		else
 		{
 			if (v.b.y > v.a.y)
 				return (get_color(env, (((((double)(y - v.a.y)) / (v.b.y
-					- v.a.y)) * (double)(v.b.d - v.a.d)) + (double)v.a.d)));
+					- v.a.y)) * (double)(v.b.z - v.a.z)) + (double)v.a.z)));
 			else if (v.a.y > v.b.y)
 				return (get_color(env, (((((double)(v.a.y - y)) / (v.a.y
-					- v.b.y)) * (double)(v.b.d - v.a.d)) + (double)v.a.d)));
+					- v.b.y)) * (double)(v.b.z - v.a.z)) + (double)v.a.z)));
 		}
 	}
-	return (get_color(env, (double)v.a.d));
+	return (get_color(env, (double)v.a.z));
 }
 
 int				change_back_color(t_env *env)
