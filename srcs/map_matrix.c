@@ -91,7 +91,7 @@ static	void		init_coordinates(t_env *env, t_point *pt)
 						* n_x) + ((env->grid.zx_spacing / 10000) * n_y));
 			pt[i].y = ((Y_OFFSET / 10000) + ((env->grid.y_spacing / 10000)
 						* n_y) - ((env->grid.zy_spacing / 10000) * n_x));
-			pt[i].d = env->grid.matrix[i + n_y];
+			pt[i].d = env->grid.matrix[i];
 			pt[i].z = (pt[i].d * env->grid.z_mult) / 10000;
 			i++;
 		}
@@ -112,5 +112,6 @@ int					map_matrix(t_env *env)
 	while (++i < n)
 		pt[i].y -= pt[i].z;
 	wire_points(env, pt, n);
+	free(pt);
 	return (1);
 }

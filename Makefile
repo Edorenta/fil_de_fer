@@ -21,6 +21,7 @@ ifeq ($(shell uname -s), Darwin)
 	INCLUDES= -Iinclude -Iminilibx_macos -Ilibft/include -Ilibclr/include
 
 else
+	MLX_PATH= minilibx_linux/
 	LIBMLX	= -lGL -Lminilibx_linux -lmlx -lXext -lX11
 	INCLUDES= -Iinclude -Iminilibx_linux -Ilibft/include -Ilibclr/include
 endif

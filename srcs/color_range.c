@@ -21,38 +21,39 @@ static	int		get_color(t_env *env, double height)
 
 	step = (height - env->grid.min) /
 		(double)(env->grid.max - env->grid.min);
-	r = ((1 - step) * ((env->clr1 & RED) >> 16)
+	r = (((double)1 - step) * ((env->clr1 & RED) >> 16)
 			+ step * ((env->clr2 & RED) >> 16));
-	g = ((1 - step) * ((env->clr1 & GREEN) >> 8)
+	g = (((double)1 - step) * ((env->clr1 & GREEN) >> 8)
 			+ step * ((env->clr2 & GREEN) >> 8));
-	b = ((1 - step) * (env->clr1 & BLUE) + step * (env->clr2 & BLUE));
+	b = (((double)1 - step) * (env->clr1 & BLUE) + step * (env->clr2 & BLUE));
 	return (rgb_to_hex(r, g, b));
 }
 
 int				gradient(t_env *env, t_vect v, int y)
 {
-	if (v.a.z != v.b.z)
+	printf("y:%d vay:%d vby:%d\n", y, v.a.y, v.b.y);
+	if (v.a.d != v.b.d)
 	{
-		if (v.a.z > v.b.z)
+		if (v.a.d > v.b.d)
 		{
 			if (v.a.y > v.b.y)
-				return (get_color(env, (((((double)(y - v.b.y)) / (v.a.y
-					- v.b.y)) * (double)(v.a.z - v.b.z)) + (double)v.b.z)));
+				return (get_color(env, (((((double)(y - v.b.y)) / (double)(v.a.y
+					- v.b.y)) * (double)(v.a.d - v.b.d)) + (double)v.b.d)));
 				if (v.b.y > v.a.y)
-				return (get_color(env, (((((double)(v.b.y - y)) / (v.b.y
-					- v.a.y)) * (double)(v.a.z - v.b.z)) + (double)v.b.z)));
+				return (get_color(env, (((((double)(v.b.y - y)) / (double)(v.b.y
+					- v.a.y)) * (double)(v.a.d - v.b.d)) + (double)v.b.d)));
 		}
 		else
 		{
 			if (v.b.y > v.a.y)
-				return (get_color(env, (((((double)(y - v.a.y)) / (v.b.y
-					- v.a.y)) * (double)(v.b.z - v.a.z)) + (double)v.a.z)));
+				return (get_color(env, (((((double)(y - v.a.y)) / (double)(v.b.y
+					- v.a.y)) * (double)(v.b.d - v.a.d)) + (double)v.a.d)));
 			else if (v.a.y > v.b.y)
-				return (get_color(env, (((((double)(v.a.y - y)) / (v.a.y
-					- v.b.y)) * (double)(v.b.z - v.a.z)) + (double)v.a.z)));
+				return (get_color(env, (((((double)(v.a.y - y)) / (double)(v.a.y
+					- v.b.y)) * (double)(v.b.d - v.a.d)) + (double)v.a.d)));
 		}
 	}
-	return (get_color(env, (double)v.a.z));
+	return (get_color(env, (double)v.a.d));
 }
 
 int				change_back_color(t_env *env)
