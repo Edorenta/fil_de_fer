@@ -17,7 +17,7 @@ int		ft_rand(int min, int max)
 	int n;
 	int	rng;
 
-	n = 10 * (int)&rng;
+	n = 10 * (intptr_t)&rng;
 	n = (n < 0) ? -n : n;
 	rng = 0;
 	while ((n /= 10) >= 10)

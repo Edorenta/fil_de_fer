@@ -12,10 +12,10 @@
 
 #include "../include/libft.h"
 
-void	ft_putnbr_base(long int nb, uint8_t base)
+void	ft_putnbr_base(long int nb, int8_t base)
 {
 	long	tmp;
-	uint8_t	dec;
+	int8_t	dec;
 
 	dec = 1;
 	if (base < 2 || base > 16)

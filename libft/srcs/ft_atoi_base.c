@@ -12,14 +12,14 @@
 
 #include "../include/libft.h"
 
-static int	ft_inbase(char c, uint8_t base)
+static int	ft_inbase(char c, int8_t base)
 {
 	if (base <= 10 && (c >= '0' && c <= '9'))
 		return (1);
 	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= ('A' + base - 10)));
 }
 
-int			ft_atoi_base(const char *str, uint8_t base)
+int			ft_atoi_base(const char *str, int8_t base)
 {
 	int	res;
 	int	sign;

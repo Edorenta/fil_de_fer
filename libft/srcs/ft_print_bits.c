@@ -12,7 +12,7 @@
 
 #include "../include/libft.h"
 
-void	ft_print_bits(unsigned int x, uint8_t bits)
+void	ft_print_bits(unsigned int x, int8_t bits)
 {
 	int8_t n[3];
 

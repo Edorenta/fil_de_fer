@@ -15,16 +15,14 @@ SRC_PATH	= srcs/
 OBJ_PATH	= objs/
 FLAGS		= -Wall -Werror -Wextra -g
 CC			= gcc $(FLAGS)
+MLX_PATH	= minilibx/
+INCLUDES	= -I./include -Iminilibx -Ilibft/include -Ilibclr/include
 ifeq ($(shell uname -s), Darwin)
-    LIBMLX	= -framework OpenGL -framework AppKit -Lminilibx_macos/ -lmlx
-	MLX_PATH = minilibx_macos/
-	INCLUDES = -Iminilibx_macos -Iinclude -Ilibft/include
+    LIBMLX	= -framework OpenGL -framework AppKit -Lminilibx -lmlx
 else
-	LIBMLX	= -lGL -Lminilibx11/ -lmlx -lXext -lX11
-	MLX_PATH = minilibx11/
-	INCLUDES = -Iminilibx11 -Iinclude -Ilibft/include
+	LIBMLX	= -lGL -Lminilibx -lmlx -lXext -lX11
 endif
-LIBS		= $(LIBMLX) libft/libft.a libclr/libclr.a
+LIBS		= $(LIBMLX) -lm -Llibclr -lclr -Llibft -lft
 #-Llibft/ -lft -Llibclr/ -llr
 
 SRC_SUFFIX  = .c
@@ -54,7 +52,7 @@ GREEN		= "\\033[32m"
 BOLD		= "\\033[1m"
 UP2			= "\\033[2A"
 UP9			= "\\033[9A"
-EOLCLR		= "\\033[K"
+EOLCLR		= "\\033[0K"
 MV			= "\\033[1;30m"
 #\033[<L>;<C>H puts the cursor at line L and column C
 #\033[<N>A Move the cursor up N lines
@@ -70,38 +68,40 @@ MV			= "\\033[1;30m"
 CHECK		= "\\xE2\\x9C\\x94"
 OK			= " $(CYAN)$(CHECK)$(WHITE)"
 
-all : $(NAME)
+all: directory $(NAME)
 
-$(NAME) : build_libs $(OBJ)
-	@$(CC) $(LIB) $(OBJ) -o $(NAME)
-
-build_libs :
+$(NAME): $(OBJ_PATH) $(OBJ)
 	@$(MAKE) -C libft/
 	@$(MAKE) -C libclr/
 	@$(MAKE) -C $(MLX_PATH)
+	@$(CC) $(OBJ) $(LIBS) -o $(NAME)
+
+
+directory: $(OBJ_PATH)
+
+$(OBJ_PATH):
+	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)%.o : $(SRC_PATH)%.c
-	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(INCLUDE) -o $@ -c $<
+	@$(CC) -c $< $(INCLUDES) -o $@
 
 clean :
 	@rm -rf $(OBJ_PATH)
-	@$(MAKE) -C $(MLX_PATH) clean
-	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx cleaned\t$(OK)\n"
+#	@$(MAKE) -C $(MLX_PATH) clean
+#	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx cleaned\t$(OK)\n"
 	@$(MAKE) -C libft/ clean
-	@printf "$(UP2)\r$(EOLCLR)""$(MV)Libft cleaned\t$(OK)\n"
+	@$(MAKE) -C libclr/ clean
 
 fclean :
-	@rm -f $(NAME)
-	@rm -rf $(OBJ_PATH)
-	@$(MAKE) -C $(MLX_PATH) clean
-	@rm -f $(MLX_PATH)libmlx.a
-	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx binaries erased\t$(OK)\n"
+	rm -f $(NAME)
+	rm -rf $(OBJ_PATH)
+#	@$(MAKE) -C $(MLX_PATH) clean
+#	@rm -f $(MLX_PATH)libmlx.a
+#	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx binaries erased\t$(OK)\n"
 	@$(MAKE) -C libft/ fclean
-	@printf "$(UP2)\r$(EOLCLR)""$(MV)Libft binaries erased\t$(OK)\n"
+	@$(MAKE) -C libclr/ fclean
 
 re : fclean $(NAME)
-	@printf "$(UP9)\r$(EOLCLR)""$(GREEN)Project successfully re-compiled\t$(OK)\n"
 
 norm : norm_fdf norm_lib
 

@@ -12,9 +12,9 @@
 
 #include "../include/libft.h"
 
-char	*ft_itoa_base(long int nb, uint8_t base)
+char	*ft_itoa_base(long int nb, int8_t base)
 {
-	uint8_t	dec;
+	int8_t	dec;
 	long	tmp;
 	int		i;
 	char	*str;

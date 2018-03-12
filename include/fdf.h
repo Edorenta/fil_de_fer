@@ -13,13 +13,13 @@
 #ifndef FDF_H
 # define FDF_H
 
+# include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <math.h>
 # include <time.h>
-# include <mlx.h>
+# include "../minilibx/mlx.h"
 # include "../libft/include/libft.h"
 # include "../libclr/include/libclr.h"
 # include "keymap.h"

@@ -73,7 +73,7 @@ static	int		key_rec_2(t_env *env, int key_code)
 	if (key_code == KEY_G && env->trail)
 	{
 		env->view.trail_lvl = env->view.trail_lvl > 21 ? 0
-			: ++env->view.trail_lvl;
+			: env->view.trail_lvl + 1;
 		env->view.background =
 			set_opacity(env->view.background, env->view.trail_lvl);
 	}

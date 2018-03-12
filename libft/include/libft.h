@@ -14,6 +14,8 @@
 # define LIBFT_H
 
 # include <stdlib.h>
+# include <stdint.h>
+# include <limits.h>
 
 # define TRUE		1
 # define FALSE		0
@@ -46,9 +48,9 @@ void				ft_lstsort(t_list **lst, int (*cmp)());
 void				ft_putendl_fd(const char *str, int fd);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_lstmerge(t_list **lst1, t_list *lst2);
-void				ft_putnbr_base(long int nb, uint8_t base);
+void				ft_putnbr_base(long int nb, int8_t base);
 void				ft_arrayrev(int *tab, int left, int right);
-void				ft_print_bits(unsigned int nb, uint8_t bits);
+void				ft_print_bits(unsigned int nb, int8_t bits);
 void				ft_lstiter(t_list *lst, void(f)(t_list *elem));
 void				ft_arrayprint(int *tab, unsigned long n, char sep);
 void				ft_lstdel(t_list **alst, void(*del)(void *, size_t));
@@ -97,7 +99,7 @@ int					ft_arraymean(int *tab, unsigned long n);
 int					ft_arraymedian(int *tab, unsigned long n);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strequ(const char *s1, const char *s2);
-int					ft_atoi_base(const char *str, uint8_t base);
+int					ft_atoi_base(const char *str, int8_t base);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strnequ(const char *s1, const char *s2, size_t n);
@@ -126,7 +128,7 @@ char				*ft_strndup(const char *str, size_t n);
 char				**ft_strsplit(const char *str, char c);
 char				*ft_strtok(char *str, const char *sep);
 char				*ft_strcpy(char *dst, const char *src);
-char				*ft_itoa_base(long int nb, uint8_t base);
+char				*ft_itoa_base(long int nb, int8_t base);
 char				*ft_strstr(const char *s1, const char *s2);
 char				*ft_strjoin(const char *s1, const char *s2);
 char				*ft_strmap(const char *str, char (*f)(char));

@@ -15,7 +15,6 @@
 char    		*raw_str(char *file_name)
 {
 	int     fd;
-	int     i;
 	int		file_size;
 	char    buf;
 	char    *tmp;
