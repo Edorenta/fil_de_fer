@@ -6,42 +6,43 @@
 #    By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/12 12:43:59 by pde-rent          #+#    #+#              #
-#    Updated: 2018/03/03 18:10:07 by pde-rent         ###   ########.fr        #
+#    Updated: 2018/03/02 23:17:46 by pde-rent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= fdf
-SRC_PATH	= srcs/
-OBJ_PATH	= objs/
-FLAGS		= -Wall -Werror -Wextra -g
+NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' |\
+				sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
+SRCS_PATH	= srcs/
+OBJS_PATH	= objs/
+I_PATH		= -I libft/include -I libclr/include -Iinclude
+FLAGS		= -Wall -Werror -Wextra -g -fsanitize=address
 CC			= gcc $(FLAGS)
 ifeq ($(shell uname -s), Darwin)
-	MLX_PATH= minilibx_macos/
-    LIBMLX	= -framework OpenGL -framework AppKit -Lminilibx_macos -lmlx
-	INCLUDES= -Iinclude -Iminilibx_macos -Ilibft/include -Ilibclr/include
-
+    LIBMLX	= -framework OpenGL -framework AppKit -Lminilibx_macos/ -lmlx
+	MLX_PATH = minilibx_macos/
+	INCLUDE  = -Iminilibx_macos $(I_PATH)
 else
-	MLX_PATH= minilibx_linux/
-	LIBMLX	= -lGL -Lminilibx_linux -lmlx -lXext -lX11
-	INCLUDES= -Iinclude -Iminilibx_linux -Ilibft/include -Ilibclr/include
+	LIBMLX	= -lGL -Lminilibx11/ -lmlx -lXext -lX11
+	MLX_PATH = minilibx11/
+	INCLUDE  = -Iminilibx11 $(I_PATH)
 endif
-LIBS		= $(LIBMLX) -lm -Llibclr -lclr -Llibft -lft
+LIBS		= $(LIBMLX) libft/libft.a libclr/libclr.a
 #-Llibft/ -lft -Llibclr/ -llr
 
-SRC_SUFFIX  = .c
-#SRC_PREFIX =
-SRC_RAW     =   main			init			drawing_toolbox			\
+SRCS_SUFFIX  = .c
+#SRCS_PREFIX =
+SRCS_RAW     =   main			init			drawing_toolbox			\
 				sketch			txt_parser		utilities				\
 				error_handle	print_ui		map_matrix				\
 				arrow_move		zoom_move		rot_move				\
-				depth_move		color_range		key_management			\
-				color_filler	
+				depth_move		color_range		key_management		
 
-#SRC_RAW2   = $(addprefix ${SRC_PREFIX},${SRC_RAW})
-SRC_FILES   = $(addsuffix $(SRC_SUFFIX),$(SRC_RAW))
-OBJ_FILES	= $(SRC_FILES:.c=.o)
-SRC			= $(addprefix $(SRC_PATH),$(SRC_FILES))
-OBJ			= $(addprefix $(OBJ_PATH),$(OBJ_FILES))
+#SRCS_RAW2   = $(addprefix ${SRCS_PREFIX},${SRCS_RAW})
+SRCS_FILES   = $(addsuffix $(SRCS_SUFFIX),$(SRCS_RAW))
+OBJS_FILES	= $(SRCS_FILES:.c=.o)
+SRCS			= $(addprefix $(SRCS_PATH),$(SRCS_FILES))
+OBJS		= $(addprefix $(OBJS_PATH),$(OBJS_FILES))
 
 #color
 YELLOW		= "\\033[33m"
@@ -50,13 +51,15 @@ RED			= "\\033[31m"
 WHITE		= "\\033[0m"
 CYAN		= "\\033[36m"
 GREEN		= "\\033[32m"
+BOLD		= "\\033[1m"
+PINK		= "\\033[95m"
 
 #command
-BOLD		= "\\033[1m"
-UP2			= "\\033[2A"
-UP9			= "\\033[9A"
 EOLCLR		= "\\033[0K"
-MV			= "\\033[1;30m"
+
+#unicode
+CHECK		= "\\xE2\\x9C\\x94"
+OK			= " $(CYAN)$(CHECK)$(WHITE)"
 #\033[<L>;<C>H puts the cursor at line L and column C
 #\033[<N>A Move the cursor up N lines
 #\033[<N>B Move the cursor down N lines
@@ -67,51 +70,62 @@ MV			= "\\033[1;30m"
 #\033[s Save cursor position
 #\033[u Restore cursor position
 
-#unicode
-CHECK		= "\\xE2\\x9C\\x94"
-OK			= " $(CYAN)$(CHECK)$(WHITE)"
+TRACKER		= .project_built
+#MAKEFLAGS	+= -j #multitasking
 
-all: directory $(NAME)
+all : $(NAME)
 
-$(NAME): $(OBJ_PATH) $(OBJ)
+$(NAME) : $(OBJS)
+	@printf "$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
+	"dependencies compiled\t"$(OK)'\n'
+	@$(CC) $(LIBS) $(OBJS) -o $(NAME)
+	@printf "$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
+	"project built\t\t"$(OK)'\n'
+
+$(OBJS_PATH)%.o : $(SRCS_PATH)%.c | $(TRACKER)
+	@printf "$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)\r"
+	@$(CC) $(INCLUDE) -o $@ -c $<
+
+%.c:
+	@printf "$(RED)Missing file : $@$(WHITE)\n"
+
+$(TRACKER): $(SRCS)
 	@$(MAKE) -C libft/
 	@$(MAKE) -C libclr/
 	@$(MAKE) -C $(MLX_PATH)
-	@$(CC) $(OBJ) $(LIBS) -o $(NAME)
-
-
-directory: $(OBJ_PATH)
-
-$(OBJ_PATH):
-	@mkdir -p $(OBJ_PATH)
-
-$(OBJ_PATH)%.o : $(SRC_PATH)%.c
-	@$(CC) -c $< $(INCLUDES) -o $@
+	@touch $(TRACKER)
+	@mkdir -p $(OBJS_PATH)
 
 clean :
-	@rm -rf $(OBJ_PATH)
+	@printf "[$(NAME_P)] cleaning\t$(PINK)all obj file$(WHITE)"
+	@rm -rf $(OBJS_PATH)
+	@rm -f $(TRACKER)
 	@$(MAKE) -C $(MLX_PATH) clean
-#	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx cleaned\t$(OK)\n"
 	@$(MAKE) -C libft/ clean
 	@$(MAKE) -C libclr/ clean
+	@printf '\t\t'$(OK)'\n'
 
 fclean :
-	@rm -f $(NAME)
-	@rm -rf $(OBJ_PATH)
-	@$(MAKE) -C $(MLX_PATH) clean
-#	@rm -f $(MLX_PATH)libmlx.a
-#	@printf "$(UP2)\r$(EOLCLR)""$(MV)Minilibx binaries erased\t$(OK)\n"
+	@rm -rf $(OBJS_PATH)
+	@rm -f $(TRACKER)
 	@$(MAKE) -C libft/ fclean
 	@$(MAKE) -C libclr/ fclean
+	@$(MAKE) -C $(MLX_PATH) clean
+	@rm -f $(MLX_PATH)libmlx.a
+	@printf "[$(NAME_P)] Minilibx binaries erased\t\t\t"$(OK)'\n'
+	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME)$(WHITE)"
+	@rm -f $(NAME)
+	@printf '\t\t\t'$(OK)'\n'
 
-re : fclean $(NAME)
+re : fclean
+	@$(MAKE) all
 
 norm : norm_fdf norm_lib
 
 norm_fdf :
-	@norminette srcs/ include/
+	@norminette SRCSs/ include/
 
 norm_lib :
-	@norminette libft/srcs/ libft/include/
+	@norminette libft/SRCSs/ libft/include/ libclr/SRCSs/ libclr/include/
 
-.PHONY : all build_libs clean fclean re norm
+.PHONY : all clean fclean re norm norm_lib norm_fdf

@@ -51,6 +51,7 @@ int		set_opacity(int clr, int lvl)
 		ALPHA_75, ALPHA_80, ALPHA_85, ALPHA_90, ALPHA_95,
 		ALPHA_100};
 
+	lvl = lvl > 21 ? (lvl % 21) : lvl;
 	clr = (clr | 0xFF000000) ^ 0xFF000000;
 	return (clr | (alpha[lvl] << 24));
 }

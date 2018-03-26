@@ -14,28 +14,30 @@
 
 void			draw_line(t_env *env, t_point a, t_point b)
 {
-	int x[2];
-	int y[2];
+	int x[3];
+	int y[3];
 	int err[2];
 
 	x[0] = abs(b.x - a.x);
 	y[0] = abs(b.y - a.y);
 	x[1] = (b.x > a.x ? 1 : -1);
 	y[1] = (b.y > a.y ? 1 : -1);
+	x[2] = a.x;
+	y[2] = a.y;
 	err[0] = x[0] - y[0];
-	while (!((b.x == a.x) && (b.y == a.y)))
+	while (!((b.x == x[2]) && (b.y == y[2])))
 	{
-		ppixel(env, a.x, a.y, gradient(env, vectorize(&a, &b), a.y));
+		ppixel(env, x[2], y[2], gradient(env, vectorize(&a, &b), y[2]));
 		err[1] = err[0];
 		if (err[1] > -x[0])
 		{
 			err[0] -= y[0];
-			a.x += x[1];
+			x[2] += x[1];
 		}
 		if (err[1] <= y[0])
 		{
 			err[0] += x[0];
-			a.y += y[1];
+			y[2] += y[1];
 		}
 	}
 }
@@ -67,15 +69,13 @@ void			draw_circle(t_env *env, t_point mid, float radius)
 	while (pos_xy[0] >= pos_xy[1])
 	{
 		draw_eight_sym(env, mid, pos_xy[0], pos_xy[1]);
-		if (err <= 0)
+		if (err <= 0 && (pos_xy[1]++))
 		{
-			pos_xy[1]++;
 			err += dxy[1];
 			dxy[1] += 2;
 		}
-		if (err > 0)
+		if (err > 0 && (pos_xy[0]--))
 		{
-			pos_xy[0]--;
 			dxy[0] += 2;
 			err += dxy[0] - ((int)radius << 1);
 		}

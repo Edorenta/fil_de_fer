@@ -58,25 +58,29 @@ static	int		key_rec_2(t_env *env, int key_code)
 {
 	if (key_code == KEY_C)
 		change_front_color(env);
-	if (key_code == KEY_B)
+	else if (key_code == KEY_B)
 		change_back_color(env);
-	if (key_code == KEY_H)
+	else if (key_code == KEY_H)
 		env->view.hori = env->view.hori ? 0 : 1;
-	if (key_code == KEY_V)
+	else if (key_code == KEY_V)
 		env->view.verti = env->view.verti ? 0 : 1;
-	if (key_code == KEY_T)
+	else if (key_code == KEY_T)
 	{
 		env->trail = env->trail ? 0 : 1;
 		if (!(env->trail))
 			env->view.trail_lvl = 0;
 	}
-	if (key_code == KEY_G && env->trail)
+	else if (key_code == KEY_G && env->trail)
 	{
 		env->view.trail_lvl = env->view.trail_lvl > 21 ? 0
 			: env->view.trail_lvl + 1;
 		env->view.background =
 			set_opacity(env->view.background, env->view.trail_lvl);
 	}
+	else if (key_code == KEY_F)
+		env->view.speed++;
+	else if (key_code == KEY_S)
+		env->view.speed--;
 	return (1);
 }
 

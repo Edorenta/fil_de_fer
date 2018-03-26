@@ -12,15 +12,27 @@
 
 #include "../include/fdf.h"
 
+/*
+** int		corners;
+** t_point *pt2;
+** corners = 4;
+** pt2 = (t_point *)malloc(sizeof(t_point) * corners);
+** i = n;
+** while (i-- > (env->grid.nb_x + 1))
+** {
+** pt2[0] = pt[i];
+** pt2[1] = pt[i - 1];
+** pt2[2] = pt[i - env->grid.nb_x];
+** pt2[3] = pt[i - env->grid.nb_x + 1];
+** if ((i + 1)% env->grid.nb_x)
+** polygon_fill(env, pt2, corners, env->width * env->height);
+** }
+*/
+
 static	void		wire_points(t_env *env, t_point *pt, int n)
 {
 	int		i;
-	/*
-	** int		corners;
-	** t_point *pt2;
-	** corners = 4;
-	** pt2 = (t_point *)malloc(sizeof(t_point) * corners);
-	*/
+
 	i = n;
 	while (i--)
 	{
@@ -31,18 +43,6 @@ static	void		wire_points(t_env *env, t_point *pt, int n)
 			if (i < (n - env->grid.nb_x))
 				draw_line(env, pt[i], pt[i + env->grid.nb_x]);
 	}
-	/*
-	** i = n;
-	** while (i-- > (env->grid.nb_x + 1))
-	** {
-	** pt2[0] = pt[i];
-	** pt2[1] = pt[i - 1];
-	** pt2[2] = pt[i - env->grid.nb_x];
-	** pt2[3] = pt[i - env->grid.nb_x + 1];
-	** if ((i + 1)% env->grid.nb_x)
-	** polygon_fill(env, pt2, corners, env->width * env->height);
-	** }
-	*/
 }
 
 static	void		rotate_xyz(t_env *env, t_point *pt, int n)
@@ -59,18 +59,18 @@ static	void		rotate_xyz(t_env *env, t_point *pt, int n)
 		rx = (pt[i].x) - env->view.mid_x;
 		ry = (pt[i].y) - env->view.mid_y;
 		z = (pt[i].z);
-		pt[i].x += (int)((rx * cos(t * ROT_Z)) + (ry * sin(t * ROT_Z))) - rx;
-		pt[i].y += (int)(-(rx * sin(t * ROT_Z)) + (ry * cos(t * ROT_Z))) - ry;
+		pt[i].x += (int)((rx * ft_cos(t * ROT_Z)) + (ry * ft_sin(t * ROT_Z))) - rx;
+		pt[i].y += (int)(-(rx * ft_sin(t * ROT_Z)) + (ry * ft_cos(t * ROT_Z))) - ry;
 		rx = (pt[i].x) - env->view.mid_x;
 		ry = (pt[i].y) - env->view.mid_y;
 		z = (pt[i].z);
-		pt[i].x += (int)((rx * cos(t * ROT_Y)) - (z * sin(t * ROT_Y))) - rx;
-		pt[i].z = (int)((rx * sin(t * ROT_Y)) + (z * cos(t * ROT_Y)));
+		pt[i].x += (int)((rx * ft_cos(t * ROT_Y)) - (z * ft_sin(t * ROT_Y))) - rx;
+		pt[i].z = (int)((rx * ft_sin(t * ROT_Y)) + (z * ft_cos(t * ROT_Y)));
 		rx = (pt[i].x) - env->view.mid_x;
 		ry = (pt[i].y) - env->view.mid_y;
 		z = (pt[i].z);
-		pt[i].y += (int)((ry * cos(t * ROT_X)) + (z * sin(t * ROT_X))) - ry;
-		pt[i].z = (int)(-(ry * sin(t * ROT_X)) + (z * cos(t * ROT_X)));
+		pt[i].y += (int)((ry * ft_cos(t * ROT_X)) + (z * ft_sin(t * ROT_X))) - ry;
+		pt[i].z = (int)(-(ry * ft_sin(t * ROT_X)) + (z * ft_cos(t * ROT_X)));
 	}
 }
 

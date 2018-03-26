@@ -24,10 +24,10 @@ void	ppixel(t_env *env, int x, int y, int clr)
 			env->imgtab[y * env->width + x] = clr;
 }
 
-void	put_ui(t_env *env, int row, int col, int clr, char *str)
+void	put_ui(t_env *env, int dim, int clr, char *str)
 {
-	mlx_string_put(env->mlx, env->win, -90 + 100 * col,
-	22 * row, clr, str);
+	mlx_string_put(env->mlx, env->win, -90 + 100 * (dim % 1000),
+	22 * (dim / 1000), clr, str);
 }
 
 int		dyna_key_hook(t_env *env)
@@ -40,6 +40,7 @@ int		dyna_key_hook(t_env *env)
 t_vect	vectorize(t_point *a, t_point *b)
 {
 	t_vect vect;
+
 	vect.a = *a;
 	vect.b = *b;
 	return (vect);

@@ -54,6 +54,7 @@ int			view_init(t_view *view)
 	view->rot_z = 0;
 	view->trail_lvl = 0;
 	view->last_dir = 0;
+	view->speed = 1;
 	return (1);
 }
 
@@ -104,11 +105,7 @@ int		deinit(t_env *env)
 int		reinit(t_env *env)
 {
 	mlx_clear_window(env->mlx, env->win);
-	mlx_destroy_image(env->mlx, env->img);
 	ft_bzero(env->imgtab, env->width * env->height * sizeof(int));
-	env->img = mlx_new_image(env->mlx, env->width, env->height);
-	env->imgtab = (int *)mlx_get_data_addr(env->img,
-			&(env->bpp), &(env->sl), &(env->endian));
 	env->clr1 = env->view.clr1;
 	env->clr2 = env->view.clr2;
 	env->clr3 = env->view.background;

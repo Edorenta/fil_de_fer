@@ -13,7 +13,7 @@
 #ifndef FDF_H
 # define FDF_H
 
-# include <math.h>
+//# include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -33,6 +33,9 @@
 # define IS_VOID(X)		if (!X) return ;
 # define SCREEN_WIDTH	2560
 # define SCREEN_HEIGHT	1440
+# define DIM(X, Y)		(Y * 1000 + X)
+# define SPEEDEX(X)		X > 0 ? (1 + X / 2) : 1 / X
+# define SPEED 			SPEEDEX(env->view.speed)
 # define ROT_X			env->view.rot_x
 # define ROT_Y			env->view.rot_y
 # define ROT_Z			env->view.rot_z
@@ -94,6 +97,7 @@ typedef struct	s_view
 	int8_t		hori;
 	int8_t		verti;
 	int8_t		trail_lvl;
+	int8_t		speed;
 }				t_view;
 
 typedef	struct	s_env
@@ -138,7 +142,7 @@ void			win_refresh(t_env *env);
 void			ppoint(t_env *env, t_point *pt);
 void			ppixel(t_env *env, int x, int y, int clr);
 void			print_ui(t_env *env);
-void			put_ui(t_env *env, int row, int col, int clr, char *str);
+void			put_ui(t_env *env, int dim, int clr, char *str);
 char			*raw_str(char *file_name);
 int				gradient(t_env *env, t_vect v, int y);
 int				tab_init(t_env *env, char *str);

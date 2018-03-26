@@ -19,8 +19,8 @@ void		move_up(t_env *env)
 		POS_Y -= env->height;
 		Y_OFFSET += (env->height * 10000);
 	}
-	POS_Y += (env->height / 120);
-	Y_OFFSET -= ((env->height / 120) * 10000);
+	POS_Y += ((env->height / 120) * SPEED);
+	Y_OFFSET -= (((env->height / 120) * 10000) * SPEED);
 }
 
 void		move_down(t_env *env)
@@ -30,8 +30,8 @@ void		move_down(t_env *env)
 		POS_Y += env->height;
 		Y_OFFSET -= (env->height * 10000);
 	}
-	POS_Y -= (env->height / 120);
-	Y_OFFSET += ((env->height / 120) * 10000);
+	POS_Y -= ((env->height / 120) * SPEED);
+	Y_OFFSET += (((env->height / 120) * 10000) * SPEED);
 }
 
 void		move_left(t_env *env)
@@ -41,8 +41,8 @@ void		move_left(t_env *env)
 		POS_X += env->width;
 		X_OFFSET += (env->width * 10000);
 	}
-	POS_X -= (env->width / 120);
-	X_OFFSET -= ((env->width / 120) * 10000);
+	POS_X -= ((env->width / 120) * SPEED);
+	X_OFFSET -= (((env->width / 120) * 10000) * SPEED);
 }
 
 void		move_right(t_env *env)
@@ -52,6 +52,6 @@ void		move_right(t_env *env)
 		POS_X -= env->width;
 		X_OFFSET -= ((env->width * 10000) * 10000);
 	}
-	POS_X += (env->width / 120);
-	X_OFFSET += ((env->width / 120) * 10000);
+	POS_X += ((env->width / 120) * SPEED);
+	X_OFFSET += (((env->width / 120) * 10000) * SPEED);
 }

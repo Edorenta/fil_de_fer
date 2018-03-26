@@ -31,7 +31,6 @@ static	int		get_color(t_env *env, double height)
 
 int				gradient(t_env *env, t_vect v, int y)
 {
-	printf("y:%d vay:%d vby:%d\n", y, v.a.y, v.b.y);
 	if (v.a.d != v.b.d)
 	{
 		if (v.a.d > v.b.d)
