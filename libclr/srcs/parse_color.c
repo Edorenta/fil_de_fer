@@ -69,11 +69,10 @@ int				parse_rgb(char *str)
 	int		j;
 	int		k;
 	int		rgb[3];
-	char	*tmp;
+	char	tmp[10];
 
 	i = 0;
 	k = 0;
-	tmp = (char *)malloc(sizeof(char) * 3);
 	while (str[++i])
 	{
 		if (str[i] >= '0' && str[i] <= '9')
@@ -89,6 +88,5 @@ int				parse_rgb(char *str)
 			++k;
 		}
 	}
-	free(tmp);
 	return (rgb_to_hex(rgb[0], rgb[1], rgb[2]));
 }
