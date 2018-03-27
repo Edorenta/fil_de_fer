@@ -13,16 +13,15 @@
 #ifndef FDF_H
 # define FDF_H
 
-//# include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <time.h>
 # ifdef __APPLE__
-#	include "../minilibx_macos/mlx.h"
+#  include "../minilibx_macos/mlx.h"
 # elif __linux__
-#	include "../minilibx_linux/mlx.h"
+#  include "../minilibx_linux/mlx.h"
 # endif
 # include "../libft/include/libft.h"
 # include "../libclr/include/libclr.h"

@@ -86,23 +86,24 @@ t_env		*env_init(void)
 	return (env);
 }
 
-int		deinit(t_env *env)
+/*
+** mlx_destroy_image(env->mlx, env->img);
+** mlx_clear_window(env->mlx, env->win);
+** mlx_destroy_window(env->mlx, env->win);
+** free(env->view);
+** free(env->grid.matrix);
+** free(env->win_title);
+** free(env->file_name);
+** free(env->imgtab);
+*/
+
+int			deinit(t_env *env)
 {
-	/*
-	** mlx_destroy_image(env->mlx, env->img);
-	** mlx_clear_window(env->mlx, env->win);
-	** mlx_destroy_window(env->mlx, env->win);
-	** free(env->view);
-	** free(env->grid.matrix);
-	** free(env->win_title);
-	** free(env->file_name);
-	** free(env->imgtab);
-	*/
 	free(env);
 	return (1);
 }
 
-int		reinit(t_env *env)
+int			reinit(t_env *env)
 {
 	mlx_clear_window(env->mlx, env->win);
 	ft_bzero(env->imgtab, env->width * env->height * sizeof(int));

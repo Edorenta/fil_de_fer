@@ -12,18 +12,23 @@
 
 #include "../include/fdf.h"
 
+static void		init_line(int *x, int *y, t_point a, t_point b)
+{
+	x[0] = ft_iabs(b.x - a.x);
+	y[0] = ft_iabs(b.y - a.y);
+	x[1] = (b.x > a.x ? 1 : -1);
+	y[1] = (b.y > a.y ? 1 : -1);
+	x[2] = a.x;
+	y[2] = a.y;
+}
+
 void			draw_line(t_env *env, t_point a, t_point b)
 {
 	int x[3];
 	int y[3];
 	int err[2];
 
-	x[0] = abs(b.x - a.x);
-	y[0] = abs(b.y - a.y);
-	x[1] = (b.x > a.x ? 1 : -1);
-	y[1] = (b.y > a.y ? 1 : -1);
-	x[2] = a.x;
-	y[2] = a.y;
+	init_line(x, y, a, b);
 	err[0] = x[0] - y[0];
 	while (!((b.x == x[2]) && (b.y == y[2])))
 	{

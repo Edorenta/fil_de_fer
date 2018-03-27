@@ -59,18 +59,18 @@ static	void		rotate_xyz(t_env *env, t_point *pt, int n)
 		rx = (pt[i].x) - env->view.mid_x;
 		ry = (pt[i].y) - env->view.mid_y;
 		z = (pt[i].z);
-		pt[i].x += (int)((rx * ft_cos(t * ROT_Z)) + (ry * ft_sin(t * ROT_Z))) - rx;
-		pt[i].y += (int)(-(rx * ft_sin(t * ROT_Z)) + (ry * ft_cos(t * ROT_Z))) - ry;
+		pt[i].x += ((rx * ft_cos(t * ROT_Z)) + (ry * ft_sin(t * ROT_Z))) - rx;
+		pt[i].y += (-(rx * ft_sin(t * ROT_Z)) + (ry * ft_cos(t * ROT_Z))) - ry;
 		rx = (pt[i].x) - env->view.mid_x;
 		ry = (pt[i].y) - env->view.mid_y;
 		z = (pt[i].z);
-		pt[i].x += (int)((rx * ft_cos(t * ROT_Y)) - (z * ft_sin(t * ROT_Y))) - rx;
-		pt[i].z = (int)((rx * ft_sin(t * ROT_Y)) + (z * ft_cos(t * ROT_Y)));
+		pt[i].x += ((rx * ft_cos(t * ROT_Y)) - (z * ft_sin(t * ROT_Y))) - rx;
+		pt[i].z = ((rx * ft_sin(t * ROT_Y)) + (z * ft_cos(t * ROT_Y)));
 		rx = (pt[i].x) - env->view.mid_x;
 		ry = (pt[i].y) - env->view.mid_y;
 		z = (pt[i].z);
-		pt[i].y += (int)((ry * ft_cos(t * ROT_X)) + (z * ft_sin(t * ROT_X))) - ry;
-		pt[i].z = (int)(-(ry * ft_sin(t * ROT_X)) + (z * ft_cos(t * ROT_X)));
+		pt[i].y += ((ry * ft_cos(t * ROT_X)) + (z * ft_sin(t * ROT_X))) - ry;
+		pt[i].z = (-(ry * ft_sin(t * ROT_X)) + (z * ft_cos(t * ROT_X)));
 	}
 }
 

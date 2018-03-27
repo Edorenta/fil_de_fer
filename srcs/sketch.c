@@ -12,13 +12,13 @@
 
 #include "../include/fdf.h"
 
-static	void	filltab(int *tab, int clr, int size, int i)
+static void		filltab(int *tab, int clr, int size, int i)
 {
 	while (++i < size)
 		tab[i] = clr;
 }
 
-static	int		display_imgtab(t_env *env)
+static int		display_imgtab(t_env *env)
 {
 	static	int		i;
 
@@ -28,7 +28,8 @@ static	int		display_imgtab(t_env *env)
 	print_ui(env);
 	return (1);
 }
-int     sketch(t_env *env)
+
+int				sketch(t_env *env)
 {
 	map_matrix(env);
 	display_imgtab(env);

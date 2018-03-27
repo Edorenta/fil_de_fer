@@ -77,10 +77,6 @@ static	int		key_rec_2(t_env *env, int key_code)
 		env->view.background =
 			set_opacity(env->view.background, env->view.trail_lvl);
 	}
-	else if (key_code == KEY_F)
-		env->view.speed++;
-	else if (key_code == KEY_S)
-		env->view.speed--;
 	return (1);
 }
 
@@ -97,6 +93,10 @@ int				key_recognition(int key_code, t_env *env)
 		env->display_ui = env->display_ui ? 0 : 1;
 	else if (key_code == KEY_SHIFT)
 		env->display_state = env->display_state ? 0 : 1;
+	else if (key_code == KEY_F)
+		env->view.speed++;
+	else if (key_code == KEY_S)
+		env->view.speed--;
 	key_rec_1(env, key_code);
 	key_rec_2(env, key_code);
 	sketch(env);

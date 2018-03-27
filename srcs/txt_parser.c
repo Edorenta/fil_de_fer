@@ -12,18 +12,18 @@
 
 #include "../include/fdf.h"
 
-char    		*raw_str(char *file_name)
+char			*raw_str(char *file_name)
 {
-	int     fd;
+	int		fd;
 	int		file_size;
-	char    buf;
-	char    *tmp;
-	
+	char	buf;
+	char	*tmp;
+
 	file_size = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (NULL);
 	while ((read(fd, &buf, 1) > 0))
-			++file_size;
+		++file_size;
 	if (!(file_size))
 		return (NULL);
 	close(fd);
@@ -35,48 +35,51 @@ char    		*raw_str(char *file_name)
 	return (tmp);
 }
 
-static	int		map_str_tab(t_env *env, char *str)
+static int		getsign(char c, int sign)
+{
+	if (c == '-')
+		return (-1);
+	else if (ft_isdigit(c))
+		return (sign);
+	return (1);
+}
+
+static int		map_str_tab(t_env *env, char *str)
 {
 	int		i;
 	int		j;
 	int		index;
 	int		sign;
-	char	*tmp;
+	char	tmp[10];
 
 	i = -1;
 	sign = 1;
 	index = -1;
-	tmp = (char *)malloc(sizeof(char) * 10);
-	printf("%s\n",str);
-	while(str[++i])
+	while (str[++i])
 	{
-		sign = (str[i] == '-' ? -1 : ft_isdigit(str[i]) ? sign : 1);
+		sign = getsign(str[i], sign);
 		if (ft_isdigit(str[i]))
 		{
 			j = -1;
-			while (ft_isdigit(str[i]))
-			{
-				tmp[++j] = str[i];
+			while (ft_isdigit(str[i]) && (tmp[++j] = str[i]))
 				i++;
-			}
 			tmp[++j] = '\0';
 			env->grid.matrix[++index] = parse_long(tmp) * sign;
 		}
 	}
-	free(tmp);
 	free(str);
 	grid_init(env);
 	return (1);
 }
 
-static	int		dim_tab(t_env *env, char *str)
+static int		dim_tab(t_env *env, char *str)
 {
 	int		i;
 
 	i = 0;
 	env->grid.nb_x = 0;
 	env->grid.nb_tot = 0;
-	while(str[i])
+	while (str[i])
 	{
 		while (str[i] && !ft_isdigit(str[i]))
 			i++;
@@ -93,7 +96,7 @@ static	int		dim_tab(t_env *env, char *str)
 	return (map_str_tab(env, str));
 }
 
-int		tab_init(t_env *env, char *str)
+int				tab_init(t_env *env, char *str)
 {
 	return (dim_tab(env, str));
 }

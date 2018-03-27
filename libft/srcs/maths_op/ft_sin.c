@@ -18,7 +18,7 @@
 ** 	double	y;
 ** 	double	s;
 ** 	int		i;
-** 
+**
 ** 	y = x;
 ** 	s = -1.0;
 ** 	i = 2;
@@ -36,11 +36,10 @@ double	ft_sin(double x)
 {
 	double ret;
 
-	if (x < -3.14159265)
-		x += 6.28318531;
-	else
-	if (x >  3.14159265)
-		x -= 6.28318531;
+	if (x < -M_PI)
+		x += M_2PI;
+	else if (x > M_PI)
+		x -= M_2PI;
 	if (x < 0)
 	{
 		ret = 1.27323954 * x + 0.405284735 * x * x;
