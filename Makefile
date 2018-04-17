@@ -17,7 +17,7 @@ SRCS_PATH	= srcs/
 OBJS_PATH	= objs/
 I_PATH		= -I libft/include -I libclr/include -Iinclude
 FLAGS		= -Wall
-FLAGS_DBG	= -Wall -Werror -Wextra -g -fsanitize=address
+FLAGS_DBG	= -Wall -Werror -Wextra
 CC			= gcc $(FLAGS)
 CC_DBG		= gcc $(FLAGS_DBG)
 ifeq ($(shell uname -s), Darwin)
@@ -38,7 +38,8 @@ SRCS_RAW     =   main			init			drawing_toolbox			\
 				sketch			txt_parser		utilities				\
 				error_handle	print_ui		map_matrix				\
 				arrow_move		zoom_move		rot_move				\
-				depth_move		color_range		key_management		
+				depth_move		color_range								\
+				key_hooks		mouse_hooks		
 
 #SRCS_RAW2   = $(addprefix ${SRCS_PREFIX},${SRCS_RAW})
 SRCS_FILES   = $(addsuffix $(SRCS_SUFFIX),$(SRCS_RAW))

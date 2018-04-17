@@ -14,7 +14,7 @@ NAME    	= libft.a
 SRCS_PATH	= srcs/
 OBJS_PATH	= objs/
 I_PATH		= -I include
-FLAGS		= -Wall -Wextra -g -fsanitize=address $(I_PATH) #-Wpedantic
+FLAGS		= -Wall -Wextra $(I_PATH)
 CC			= gcc $(FLAGS)
 SRCS_SUBDIRS= $(shell find $(SRCS_PATH) -type d)
 SRCS_FILES	= $(shell find $(SRCS_PATH)/* -type f -name "*.c"\

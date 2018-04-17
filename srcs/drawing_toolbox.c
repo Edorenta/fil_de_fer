@@ -12,6 +12,17 @@
 
 #include "../include/fdf.h"
 
+int				gradient(t_env *env, t_vect v, int x, int y)
+{
+	int		tmp[2];
+
+	tmp[0] = v.b.x > v.a.x ? v.b.x - v.a.x : v.a.x - v.b.x;
+	tmp[1] = v.b.y > v.a.y ? v.b.y - v.a.y : v.a.y - v.b.y;
+	if (tmp[0] > tmp[1])
+		return (x_gradient(env, v, x));
+	return (y_gradient(env, v, y));
+}
+
 static void		init_line(int *x, int *y, t_point a, t_point b)
 {
 	x[0] = ft_iabs(b.x - a.x);
@@ -32,7 +43,7 @@ void			draw_line(t_env *env, t_point a, t_point b)
 	err[0] = x[0] - y[0];
 	while (!((b.x == x[2]) && (b.y == y[2])))
 	{
-		ppixel(env, x[2], y[2], gradient(env, vectorize(&a, &b), y[2]));
+		ppixel(env, x[2], y[2], gradient(env, vectorize(&a, &b), x[2], y[2]));
 		err[1] = err[0];
 		if (err[1] > -x[0])
 		{

@@ -66,6 +66,7 @@ t_env		*env_init(void)
 	srand(time(NULL));
 	env = (t_env *)malloc(sizeof(t_env));
 	env->trail = 0;
+	env->clicked = 0;
 	env->win_title = ft_strdup("Wireframe");
 	env->pct_scale = 80;
 	env->width = (SCREEN_WIDTH * env->pct_scale) / 100;

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+#include "../include/X.h"
 
 void	win_refresh(t_env *env)
 {
@@ -33,7 +34,10 @@ void	put_ui(t_env *env, int dim, int clr, char *str)
 int		dyna_key_hook(t_env *env)
 {
 	mlx_hook(env->win, 2, 2, key_recognition, env);
-	mlx_mouse_hook(env->win, mouse_recognition, env);
+	mlx_mouse_hook(env->win, mouse_scroll, env);
+	mlx_hook(env->win, MotionNotify, PointerMotionMask, mouse_move, env);
+	mlx_hook(env->win, ButtonPress, ButtonPressMask, mouse_press, env);
+	mlx_hook(env->win, ButtonRelease, ButtonReleaseMask, mouse_release, env);
 	return (1);
 }
 

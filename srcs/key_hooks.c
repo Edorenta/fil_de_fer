@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_management.c                                   :+:      :+:    :+:   */
+/*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -29,19 +29,6 @@ inline static void		switch_view(t_env *env, int key_code)
 		SWITCH_HORI;
 	else if (key_code == KEY_V)
 		SWITCH_VERTI;
-}
-
-int						mouse_recognition(int key_code, int pos_x, int pos_y,
-		t_env *env)
-{
-	if (key_code == SCROLL_UP)
-		inc_depth(env);
-	else if (key_code == SCROLL_DOWN)
-		dec_depth(env);
-	sketch(env);
-	(void)pos_x;
-	(void)pos_y;
-	return (1);
 }
 
 static	int				key_rec_1(t_env *env, int key_code)

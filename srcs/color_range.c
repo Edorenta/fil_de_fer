@@ -31,7 +31,33 @@ static	int		get_color(t_env *env, double height)
 	return (rgb_to_hex(r, g, b));
 }
 
-int				gradient(t_env *env, t_vect v, int y)
+int				x_gradient(t_env *env, t_vect v, int x)
+{
+	if (v.a.d != v.b.d)
+	{
+		if (v.a.d > v.b.d)
+		{
+			if (v.a.x > v.b.x)
+				return (get_color(env, (((((double)(x - v.b.x)) / (double)(v.a.x
+					- v.b.x)) * (double)(v.a.d - v.b.d)) + (double)v.b.d)));
+				if (v.b.x > v.a.x)
+				return (get_color(env, (((((double)(v.b.x - x)) / (double)(v.b.x
+					- v.a.x)) * (double)(v.a.d - v.b.d)) + (double)v.b.d)));
+		}
+		else
+		{
+			if (v.b.x > v.a.x)
+				return (get_color(env, (((((double)(x - v.a.x)) / (double)(v.b.x
+					- v.a.x)) * (double)(v.b.d - v.a.d)) + (double)v.a.d)));
+			else if (v.a.x > v.b.x)
+				return (get_color(env, (((((double)(v.a.x - x)) / (double)(v.a.x
+					- v.b.x)) * (double)(v.b.d - v.a.d)) + (double)v.a.d)));
+		}
+	}
+	return (get_color(env, (double)v.a.d));
+}
+
+int				y_gradient(t_env *env, t_vect v, int y)
 {
 	if (v.a.d != v.b.d)
 	{

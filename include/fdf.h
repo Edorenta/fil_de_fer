@@ -145,6 +145,7 @@ typedef	struct	s_env
 	int			bpp;
 	int			sl;
 	int			endian;
+	int			clicked;
 }				t_env;
 
 void			move_right(t_env *env);
@@ -167,7 +168,9 @@ void			ppixel(t_env *env, int x, int y, int clr);
 void			print_ui(t_env *env);
 void			put_ui(t_env *env, int dim, int clr, char *str);
 char			*raw_str(char *file_name);
-int				gradient(t_env *env, t_vect v, int y);
+int				gradient(t_env *env, t_vect v, int x, int y);
+int				y_gradient(t_env *env, t_vect v, int y);
+int				x_gradient(t_env *env, t_vect v, int x);
 int				tab_init(t_env *env, char *str);
 int				grid_init(t_env *env);
 int				view_init(t_view *view);
@@ -176,8 +179,10 @@ int				change_front_color(t_env *env);
 int				dyna_key_hook(t_env *env);
 int				loop_key_hook(t_env *env);
 int				key_recognition(int key_code, t_env *env);
-int				mouse_recognition(int key_code, int pos_x,
-						int pos_y, t_env *env);
+int				mouse_scroll(int key_code, int pos_x, int pos_y, t_env *env);
+int				mouse_press(int key_code, int pos_x, int pos_y, t_env *env);
+int				mouse_release(int key_code, int pos_x, int pos_y, t_env *env);
+int				mouse_move(int pos_x, int pos_y, t_env *env);
 int				sketch(t_env *env);
 int				first_trail(t_env *env);
 int				map_matrix(t_env *env);
